@@ -1,5 +1,6 @@
 package com.bankingapp.controller;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -49,7 +50,7 @@ public class UserController extends BankController{
 		}
 
 	}
-	
+
 	@RequestMapping(value="/loginuser",method=RequestMethod.POST)
 	public ModelAndView loginUserDataBase(HttpServletRequest req,@ModelAttribute("customer")Customer cus,@ModelAttribute("accountholder") @Valid User us,BindingResult result) throws BankingException
 	{
@@ -80,7 +81,7 @@ public class UserController extends BankController{
 			}
 		}
 	}
-	
+
 	@RequestMapping(value="/ChangePwd",method=RequestMethod.POST)
 	public ModelAndView changePassword(@ModelAttribute("accountholder")User us,@ModelAttribute("customer")Customer cust)
 	{
@@ -125,7 +126,7 @@ public class UserController extends BankController{
 			return null;
 		}
 	}
-	
+
 	@RequestMapping(value="/Update",method=RequestMethod.POST)
 	public ModelAndView update(@ModelAttribute("customer")Customer customer,Model model,@ModelAttribute("accountholder")User user) 
 	{
@@ -158,50 +159,37 @@ public class UserController extends BankController{
 		return "Welcome";
 
 	}
-	
+
 	@RequestMapping(value="/logout",method=RequestMethod.GET)
 	public ModelAndView logout(@ModelAttribute("accountRecover") User us)
 	{	us=null;
 	session.invalidate();
 	return new ModelAndView("index");
 	}
-	
-	@RequestMapping(value="display",method=RequestMethod.GET)
-	public ModelAndView displayForm(@ModelAttribute("bank")ServiceTracker st,@ModelAttribute("customer")Customer customer,@ModelAttribute("accountholder")User us)
-	{
 
-		boolean res;
-		try {
-			res = userService.checkPendingRequest(((AccountMaster)session.getAttribute("acc")).getAccountId());
-		} catch (BankingException e) {
-			res=false;
-		}
-		if(res==false)
-		{
-			return new ModelAndView("Request","statement","");
-		}
-		else
-		{
-			return new ModelAndView("Request","statement","You have already pending request!");
-		}
-	}
-	
-	@RequestMapping(value="addrequest",method=RequestMethod.POST)
-	public ModelAndView addRequest(@ModelAttribute("bank")ServiceTracker st)
+	@RequestMapping(value="addrequest",method=RequestMethod.GET)
+	public ModelAndView addRequest(@ModelAttribute("bank")ServiceTracker st,@ModelAttribute("customer")Customer customer,@ModelAttribute("accountholder")User us)
 	{
 		int accid=((AccountMaster)session.getAttribute("acc")).getAccountId();
 		st.setAccId(accid);
 		st.setServiceDesc("Request For CheckBook");
 		LocalDate todays_date=LocalDate.now();
-		java.sql.Date tDate=java.sql.Date.valueOf(todays_date);
-		//Date today_date=Date.from(todays_date.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
-		st.setServiceRaiseDate(tDate);
+		st.setServiceRaiseDate(Date.valueOf(todays_date));
 		st.setServiceStatus("Open");
 		try {
-			userService.addCheckRequest(st);
-			return new ModelAndView("Request","msg","Checkbook Request has been submitted");
+			userService.checkPendingRequest(accid);
+			try
+			{
+				userService.addCheckRequest(st);
+				return new ModelAndView("Welcome","msg","Checkbook Request has been submitted");
+			}
+			catch(BankingException e)
+			{
+				return new ModelAndView("Welcome","msg","Request Failed");
+			}
 		} catch (BankingException e) {
-			return new ModelAndView("Request","msg","Request Failed");
+			return new ModelAndView("Welcome","msg","You already have booking request!");
+
 		}
 	}
 

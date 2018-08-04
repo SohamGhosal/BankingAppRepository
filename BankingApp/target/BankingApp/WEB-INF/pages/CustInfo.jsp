@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="f"%>
 <jsp:include page="AdminDefault.jsp" />
@@ -9,6 +9,7 @@
 <style type="text/css">
 <%@include file="css/BankLogin.css"%>
 <%@include file="css/Bank.css"%>
+<%@include file="css/W3.css"%>
 </style>
 <script type="text/javascript">
 	
@@ -19,7 +20,9 @@
 <title>Insert title here</title>
 </head>
 <body onload="noBack();">
-	<table align="center">
+<br><br>
+	<table class="w3-table-all w3-card-4">
+	<caption>Customer Details</caption>
 		<tr>
 			<th>Customer ID</th>
 			<th>Account ID</th>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!DOCTYPE html>
 <jsp:include page="AdminDefault.jsp" />
 <html>
 <head>
@@ -16,7 +17,12 @@
 <title>Insert title here</title>
 </head>
 <body onload="noBack();">
-<div style="background-color: white">
+<div class="titleStyle">
+<c:if test="${not empty msg }">
+		<script>
+			alert("${msg}");
+		</script>
+	</c:if>
 	<p align="center">This Bank is a well known Bank.<br>Congratulations! You are an admin<br>Things you can do as an admin :</p>
 	<br>
 	<p align="center">
@@ -28,8 +34,6 @@
 	<br>
 	</p>
 	<p align="center">You are in full control. So be careful and have fun!!!!</p>
-	<br>
-	
 	</div>
 </body>
 </html>

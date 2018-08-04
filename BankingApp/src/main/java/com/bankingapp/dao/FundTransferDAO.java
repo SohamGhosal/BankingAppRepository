@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 
 import org.apache.log4j.Logger;
@@ -30,7 +31,7 @@ public class FundTransferDAO implements IFundTransferDAO {
 				return true;
 			else
 				return false;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("No Account Found!");
 		}
 	}
@@ -124,7 +125,7 @@ public class FundTransferDAO implements IFundTransferDAO {
 				res=false;
 			}
 		}
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			System.out.println(e.getMessage());
 		}

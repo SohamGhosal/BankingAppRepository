@@ -1,25 +1,14 @@
 package com.bankingapp.dao;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.BankAdmin;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.PayeeTable;
 import com.bankingapp.dto.SecurityQuest;
 import com.bankingapp.dto.ServiceTracker;
 import com.bankingapp.dto.Transactions;
@@ -57,7 +46,7 @@ public class GenericBankDAO implements IGenericBankDAO
 			user = query.getSingleResult();
 			logger.info("User is validated!");
 		}
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			throw new BankingException("Invalid Credential");
 		}
@@ -72,7 +61,7 @@ public class GenericBankDAO implements IGenericBankDAO
 			AccountMaster am=em.getReference(AccountMaster.class, accid);
 			return am;
 		}
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			throw new BankingException("Account Id does not exist");
 		}
@@ -95,7 +84,7 @@ public class GenericBankDAO implements IGenericBankDAO
 				return transactionLogs;
 			else
 				throw new BankingException("No records found");
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("No records found");
 		}
 
@@ -113,7 +102,7 @@ public class GenericBankDAO implements IGenericBankDAO
 		try {
 			list = query.getResultList();
 			return list;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("List fetching unsuccessful");
 		}
 
@@ -125,7 +114,7 @@ public class GenericBankDAO implements IGenericBankDAO
 		try {
 			ServiceTracker sts = em.getReference(ServiceTracker.class, st.getServiceId());
 			return sts;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("No records found");
 		}
 

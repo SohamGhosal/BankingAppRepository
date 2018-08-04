@@ -1,9 +1,31 @@
 package com.bankingapp.exception;
-public class BankingException extends Exception
+
+import javax.persistence.PersistenceException;
+
+public class BankingException extends PersistenceException
 {
-	public BankingException(String message) // Parameterized constructor
-	{
-		super(message);
+
+	public BankingException() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+
+	public BankingException(String message, Throwable cause) {
+		super(message, cause);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BankingException(String message) {
+		super(message);
+		// TODO Auto-generated constructor stub
+	}
+
+	public BankingException(Throwable cause) {
+		super(cause);
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	
 	
 }

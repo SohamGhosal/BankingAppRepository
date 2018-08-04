@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -31,7 +32,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 			res=true;
 			return res;
 		}
-		catch (Exception e) {
+		catch(PersistenceException e) {
 			throw new BankingException("Registration Failed");
 		}
 	}
@@ -46,7 +47,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 				return custReqList;
 			else
 				throw new BankingException("Customer List is Empty");
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("Customer List is Empty");
 		}
 	}
@@ -55,7 +56,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 		try {
 			CustomerRequests custReq=em.getReference(CustomerRequests.class, customerReqId);
 			return custReq;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("Request Not found");
 		}
 	}
@@ -70,7 +71,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 			logger.info("Registration is Sucessful");
 			return true;
 		}
-		catch (Exception e) {
+		catch(PersistenceException e) {
 			throw new BankingException("Insertion Failed");
 		}
 

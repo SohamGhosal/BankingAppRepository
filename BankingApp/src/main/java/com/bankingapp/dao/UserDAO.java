@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -31,7 +32,7 @@ public class UserDAO implements IUserDAO {
 		{
 			cs=query.getSingleResult();
 		}
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			throw new BankingException("Customer Not Found");
 		}
@@ -54,7 +55,7 @@ public class UserDAO implements IUserDAO {
 			logger.info("Password has been changed successfully");
 			return user;
 		}
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			throw new BankingException("Password has not been changed successfully");
 		}
@@ -65,7 +66,7 @@ public class UserDAO implements IUserDAO {
 			em.merge(cus);
 			Customer cust=em.find(Customer.class,cus.getCustomerId());
 			return cust;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("Update Failed");
 		}
 
@@ -78,7 +79,7 @@ public class UserDAO implements IUserDAO {
 		{
 			em.persist(st);
 			em.flush();
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("Request Failed");
 		}
 	}
@@ -95,13 +96,13 @@ public class UserDAO implements IUserDAO {
 				return serviceLogs;
 			else
 				throw new BankingException("No records found!");
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("No records found!");
 		}
 	}
 
 	@Override
-	public boolean checkPendingRequest(int accid) throws BankingException{
+	public void checkPendingRequest(int accid) throws BankingException{
 		TypedQuery<ServiceTracker> query=em.createQuery(QueryMapper.findRequest,ServiceTracker.class);
 		query.setParameter("accountid", accid);
 		String servdesc="Request For CheckBook";
@@ -110,8 +111,7 @@ public class UserDAO implements IUserDAO {
 		query.setParameter("status",status);
 		try {
 			ServiceTracker st =query.getSingleResult();
-			return true;
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("No open Request Found");
 		}
 
