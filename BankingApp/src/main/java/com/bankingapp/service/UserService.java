@@ -43,7 +43,7 @@ public class UserService  implements IUserService{
 		return userDao.showServiceByAccID(accid);
 	}
 	@Override
-	public boolean checkPendingRequest(int accid) throws BankingException {
-		return userDao.checkPendingRequest(accid);
+	public void checkPendingRequest(int accid) throws BankingException {
+		userDao.checkPendingRequest(accid);
 	}
 }

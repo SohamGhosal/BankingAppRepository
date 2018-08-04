@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,9 +72,10 @@
 
 				Not a member? <a
 					onclick="document.getElementById('id02').style.display='block'"
-					style="color: red">Sign Up</a><br>Forgot <a
+					style="color: red">Sign Up</a>
+					<a style="padding-left: 14em"
 					onclick="document.getElementById('id04').style.display='block'"
-					style="color: red">password?</a><br>
+					style="color: red">Forgot Password?</a><br>
 				<p>
 					By creating an account you agree to our <a
 						onclick="document.getElementById('id03').style.display='block'">Terms
@@ -158,7 +159,7 @@
 					class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container">
-				<p>No Terms & Conditions</p>
+				<label>No Terms  Conditions</label>
 			</div>
 		</form>
 	</div>

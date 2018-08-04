@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="a"%>
-<jsp:include page="Welcome.jsp" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<jsp:include page="WelcomeDefault.jsp" />
+<!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
 <%@include file="css/Bank.css"%>
+<%@include file="css/W3.css"%>
 </style>
 <script type="text/javascript">
 <%@include file="Javascript/Bank.js"%>
@@ -16,8 +18,9 @@
 <title>Insert title here</title>
 </head>
 <body  onload="noBack();">
-<center>
-<table>
+<br><br>
+<table class="w3-table-all w3-card-4" >
+<caption>Service Details</caption>
 <tr>
 <th>Service ID</th>
 <th>Service Description</th>
@@ -30,11 +33,11 @@
 <td>${acc.serviceId}</td>
 <td>${acc.serviceDesc}</td>
 <td>${acc.accId}</td>
-<td>${acc.serviceRaiseDate}</td>
+<td><fmt:formatDate type = "date" 
+         dateStyle = "short" value = "${acc.serviceRaiseDate}" /></td>
 <td>${acc.serviceStatus}</td>
 </tr>
 </a:forEach>
 </table>
-</center>
 </body>
 </html>

@@ -1,11 +1,8 @@
 package com.bankingapp.controller;
 
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,20 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.bankingapp.dto.AccountMaster;
 import com.bankingapp.dto.BankAdmin;
 import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.SecurityQuest;
 import com.bankingapp.dto.ServiceTracker;
 import com.bankingapp.dto.Transactions;
 import com.bankingapp.dto.User;
 import com.bankingapp.exception.BankingException;
 import com.bankingapp.service.AdminService;
-import com.bankingapp.service.GenericBankService;
 import com.bankingapp.service.IAdminService;
-import com.bankingapp.service.IGenericBankService;
 @Controller("/BankAdmin")
 public class AdminController extends BankController{
 	@Autowired
@@ -43,7 +34,7 @@ public class AdminController extends BankController{
 			session.setAttribute("ba",baD);
 			logger.info("Login Successful");
 			return new ModelAndView("AdminHome");
-		} catch (Exception e) {
+		} catch (BankingException e) {
 			return new ModelAndView("index","msg","Invalid Info");
 		}
 	}
@@ -101,7 +92,7 @@ public class AdminController extends BankController{
 			List<Customer>custInfo=adminService.getCustInfo();
 			return new ModelAndView("CustInfo","custInfo",custInfo);
 		} catch (BankingException e) {
-			return new ModelAndView("CustInfo","msg","Error");
+			return new ModelAndView("AdminHome","msg","No Customer Found!");
 		}
 
 	}
@@ -110,9 +101,11 @@ public class AdminController extends BankController{
 	{
 		try {
 			Customer custInfo=adminService.getCust(customerId);
-			return new ModelAndView("SingleCustInfo","custInfo",custInfo);
+			List<Customer>custInfos=new ArrayList<Customer>();
+			custInfos.add(custInfo);
+			return new ModelAndView("CustInfo","custInfo",custInfos);
 		} catch (BankingException e) {
-			return new ModelAndView("SingleCustInfo","msg","Error");
+			return new ModelAndView("AdminHome","msg","No Customer Found!");
 		}
 
 	}
@@ -123,7 +116,7 @@ public class AdminController extends BankController{
 			List<Transactions>getLog=bankService.getStatements(accountId);
 			return new ModelAndView("AdminTransactionLogs","transaction",getLog);
 		} catch (BankingException e) {
-			return new ModelAndView("AdminTransactionLogs","msg","Error");
+			return new ModelAndView("AdminHome","msg","No Transactions Found");
 		}
 
 	}
@@ -135,7 +128,7 @@ public class AdminController extends BankController{
 			session.setAttribute("tLog", "detailed");
 			return new ModelAndView("AdminTransactionLogs","transaction",getLog);
 		} catch (BankingException e) {
-			return new ModelAndView("AdminTransactionLogs","msg","Error");
+			return new ModelAndView("AdminHome","msg","No Transactions Found");
 		}
 	}
 	@RequestMapping(value="/adminhome",method=RequestMethod.GET)

@@ -13,5 +13,5 @@ public interface IUserDAO {
 	public Customer updateDetails(Customer cus) throws BankingException;
 	public void addCheckRequest(ServiceTracker st) throws BankingException;
 	public List<ServiceTracker> showServiceByAccID(int accid) throws BankingException;
-	public boolean checkPendingRequest(int accid) throws BankingException;
+	public void checkPendingRequest(int accid) throws BankingException;
 }

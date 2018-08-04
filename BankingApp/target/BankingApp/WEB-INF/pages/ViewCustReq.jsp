@@ -3,11 +3,12 @@
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@taglib uri="http://www.springframework.org/tags/form" prefix="f" %>
     <jsp:include page="AdminDefault.jsp" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
 <%@include file="css/Bank.css"%>
+<%@include file="css/W3.css"%>
 </style>
 <script type="text/javascript">
 	
@@ -23,7 +24,9 @@
 			alert("${msg}");
 		</script>
 	</c:if>
-<table align="center">
+	<br><br>
+<table class="w3-table-all w3-card-4">
+<caption>Chequebook Request Details</caption>
 <tr>
 <th>Customer Request ID </th>
 <th>Customer's Name</th>

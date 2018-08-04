@@ -49,6 +49,24 @@ button:hover,#btnCnf:HOVER,.cancelbtnLogin:hover{
     padding: 10px 18px;
     margin-left: 235px;
 }
+.cancelDetailsbtn {
+	width: auto;
+	background-color: #f44336;
+	padding: 10px 18px;
+}
+
+.updateBtn {
+	width: auto;
+	padding: 10px 18px;
+	margin-right: 250px;
+	background-color: gray;
+}
+
+.updatePwdBtn {
+	width: auto;
+	padding: 10px 18px;
+	margin-right: 150px;
+}
 /* Center the image and position the close button */
 .imgcontainer {
     text-align: center;

@@ -1,5 +1,6 @@
 package com.bankingapp.dto;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 
@@ -48,11 +49,5 @@ public class ServiceTracker
 	}
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
-	}
-	@Override
-	public String toString() {
-		return "ServiceTracker [serviceId=" + serviceId + ", serviceDesc="
-				+ serviceDesc + ", accId=" + accId + ", serviceRaiseDate="
-				+ serviceRaiseDate + ", serviceStatus=" + serviceStatus + "]";
 	}
 }

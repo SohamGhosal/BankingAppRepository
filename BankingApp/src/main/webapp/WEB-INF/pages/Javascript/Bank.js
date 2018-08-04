@@ -62,3 +62,9 @@ function passWordCheck()
 			return false;
 		}
 }
+function updateDetails()
+{
+		var updateBtn=document.getElementById("updateBtn");
+		updateBtn.disabled=false;
+		updateBtn.style.backgroundColor="#4CAF50";
+}

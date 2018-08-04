@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -29,7 +30,7 @@ public class CredentialDAO implements ICredentialDAO{
 			em.merge(user);
 			em.flush();
 			logger.info("Password is changed!");
-		} catch (Exception e) {
+		} catch(PersistenceException e) {
 			throw new BankingException("Password Not changed!");
 		}
 		return pass;
@@ -44,7 +45,7 @@ public class CredentialDAO implements ICredentialDAO{
 			em.flush();
 		}
 
-		catch (Exception e)
+		catch(PersistenceException e)
 		{
 			e.printStackTrace();
 		}
@@ -60,7 +61,7 @@ public class CredentialDAO implements ICredentialDAO{
 			CustomerRequests crs=query.getSingleResult();
 			return cr;
 		}
-		catch (Exception e) {
+		catch(PersistenceException e) {
 			throw new BankingException("Customer Request Not found");
 		}
 	}

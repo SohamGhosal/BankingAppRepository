@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -33,7 +34,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 			logger.info("Admin is Validated!");
 			return ba;
 		}
-		catch(Exception e)
+		catch(PersistenceException e)
 		{
 			throw new BankingException("Invalid Credentials");
 		}
@@ -45,7 +46,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try {
 			Customer cust=em.getReference(Customer.class, customerId);
 			return cust;
-		} catch (Exception e) {
+		} catch (PersistenceException e) {
 			throw new BankingException("No customer found!");
 		}
 	}
@@ -59,7 +60,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 				return transactionLogs;
 			else
 				throw new BankingException("No transaction found");
-		} catch (Exception e) {
+		} catch(PersistenceException e){
 			throw new BankingException("No transaction found");
 		}
 	}
@@ -74,7 +75,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 			em.merge(sts);
 			res=true;
 			return res;
-		} catch (Exception e) {
+		} catch(PersistenceException e){
 			throw new BankingException("Not confirmed!");
 		}
 	}
@@ -85,7 +86,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try {
 			List<Customer> cust=query.getResultList();
 			return cust;
-		} catch (Exception e) {
+		} catch(PersistenceException e){
 			throw new BankingException("No customer found!");
 		}
 	}
@@ -101,7 +102,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 			em.merge(sts);
 			res=true;
 			return res;
-		} catch (Exception e) {
+		} catch(PersistenceException e){
 			throw new BankingException("Not Rejected!");
 		}
 	}
@@ -113,7 +114,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try {
 			List<ServiceTracker> list=query.getResultList();
 			return list;
-		} catch (Exception e) {
+		} catch(PersistenceException e){
 			throw new BankingException("No Service opened");
 		}
 	}

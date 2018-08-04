@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
@@ -16,6 +17,8 @@
 <title>Insert title here</title>
 </head>
 <body onload="noBack();">
+<div class="titleStyle" align="center">
+		<label class="welcomeMsg">Soham's Bank</label>
 	<ul>
 		<li><a href="adminhome"><img
 				src="resources/images/home.png"></a></li>
@@ -42,7 +45,8 @@
 			</ul>
 			</li>
 			</ul>
-			<br><br><br><br>
+			</div>
+			<br><br>
 	<div id="id01" class="modal">
 
 		<form action="ViewCustomer" method="post" class="modal-content animate">
