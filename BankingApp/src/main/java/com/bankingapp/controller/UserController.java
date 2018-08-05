@@ -38,7 +38,8 @@ public class UserController extends BankController{
 	@Autowired
 	IUserService userService=new UserService();
 	@RequestMapping(value="/loginpage",method=RequestMethod.GET)
-	public ModelAndView loginUser(HttpServletRequest req,@ModelAttribute("accountholder")User us,@ModelAttribute("customer")Customer cus,@ModelAttribute("customerRequest")CustomerRequests cr,@ModelAttribute("bankAdmin")BankAdmin ba)
+	public ModelAndView loginUser(HttpServletRequest req,@ModelAttribute("accountholder")User us,@ModelAttribute("customer")Customer 
+cus,@ModelAttribute("customerRequest")CustomerRequests cr,@ModelAttribute("bankAdmin")BankAdmin ba)
 	{
 		List<SecurityQuest> secretQuest;
 		try {
@@ -52,7 +53,8 @@ public class UserController extends BankController{
 	}
 
 	@RequestMapping(value="/loginuser",method=RequestMethod.POST)
-	public ModelAndView loginUserDataBase(HttpServletRequest req,@ModelAttribute("customer")Customer cus,@ModelAttribute("accountholder") @Valid User us,BindingResult result) throws BankingException
+	public ModelAndView loginUserDataBase(HttpServletRequest req,@ModelAttribute("customer")Customer cus,@ModelAttribute("accountholder") @Valid User us,BindingResult result) 
+throws BankingException
 	{
 		request=null;
 		if(result.hasErrors())
@@ -87,7 +89,9 @@ public class UserController extends BankController{
 	{
 		String Msg=null;
 		User sessionUser=(User) session.getAttribute("user");
-		if(us.getPassword().equals(sessionUser.getPassword())&&!(us.getTransPassword().equals(sessionUser.getTransPassword())||us.getTransPassword().equals(sessionUser.getPassword())))
+		
+if(us.getPassword().equals(sessionUser.getPassword())&&!(us.getTransPassword().equals(sessionUser.getTransPassword())||us.getTransPassword().equals(sessionUser.getPassword())
+))
 		{
 			try
 			{
@@ -178,23 +182,26 @@ public class UserController extends BankController{
 		st.setServiceStatus("Open");
 		try {
 			userService.checkPendingRequest(accid);
+			return new ModelAndView("Welcome","msg","You already have booking request!");
+		}
+		catch (BankingException e) {
 			try
 			{
 				userService.addCheckRequest(st);
 				return new ModelAndView("Welcome","msg","Checkbook Request has been submitted");
 			}
-			catch(BankingException e)
+			catch(BankingException e1)
 			{
 				return new ModelAndView("Welcome","msg","Request Failed");
 			}
-		} catch (BankingException e) {
-			return new ModelAndView("Welcome","msg","You already have booking request!");
 
 		}
+			
 	}
 
 	@RequestMapping(value="ByServiceid",method=RequestMethod.POST)
-	public ModelAndView getById(HttpServletRequest request,@RequestParam("serviceId")Integer serviceId,@ModelAttribute("customer")Customer customer,@ModelAttribute("accountholder")User us)
+	public ModelAndView getById(HttpServletRequest request,@RequestParam("serviceId")Integer serviceId,@ModelAttribute("customer")Customer 
+customer,@ModelAttribute("accountholder")User us)
 	{
 		ServiceTracker st=new ServiceTracker();
 		st.setServiceId(serviceId);
@@ -207,7 +214,8 @@ public class UserController extends BankController{
 	}
 
 	@RequestMapping(value="displayacc",method=RequestMethod.GET)
-	public ModelAndView getByAccId(@ModelAttribute("bank")ServiceTracker st,@ModelAttribute("trans") PayeeTable trans,@ModelAttribute("customer")Customer customer,@ModelAttribute("accountholder")User us)
+	public ModelAndView getByAccId(@ModelAttribute("bank")ServiceTracker st,@ModelAttribute("trans") PayeeTable trans,@ModelAttribute("customer")Customer 
+customer,@ModelAttribute("accountholder")User us)
 	{
 		int accid=((AccountMaster)session.getAttribute("acc")).getAccountId();
 		List<ServiceTracker> list;
