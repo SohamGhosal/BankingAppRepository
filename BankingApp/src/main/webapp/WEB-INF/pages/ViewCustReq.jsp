@@ -16,7 +16,7 @@
 	
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Confirm Customer Request</title>
 </head>
 <body onload="noBack();">
 	<c:if test="${not empty msg}">
@@ -24,9 +24,9 @@
 			alert("${msg}");
 		</script>
 	</c:if>
-	<br><br>
-<table class="w3-table-all w3-card-4">
-<caption>Chequebook Request Details</caption>
+	<br><br><br><br>
+<table class="w3-table-all w3-card-4" style="width: auto;">
+<caption>Registration Request Details</caption>
 <tr>
 <th>Customer Request ID </th>
 <th>Customer's Name</th>
@@ -37,11 +37,12 @@
 <th>Account Type</th>
 <th>Account Balance</th>
 <th>Customer's ChequeBook Status</th>
+<th></th>
 </tr>
 <c:forEach items="${custReq}" var="cust">
 <f:form action="ConfirmAcc" method="post">
 <tr>
-<td><input type="hidden" name="custReqId" value="${cust.custReqId }"/>${cust.custReqId }</td>
+<td><input type="hidden" name="custReqId" value="${cust.custReqId}"/>${cust.custReqId }</td>
 <td>${cust. custName }</td>
 <td>${cust.email }</td>
 <td>${cust.mobileNo }</td>
@@ -50,7 +51,7 @@
 <td>${cust.accountType }</td>
 <td>${cust.accountBal }</td>
 <td>${cust.chequeStatus }</td>
-<td><button type="submit" value="Confirm"></button></td>
+<td><button type="submit">Confirm</button></td>
 </tr>
 </f:form>
 </c:forEach>

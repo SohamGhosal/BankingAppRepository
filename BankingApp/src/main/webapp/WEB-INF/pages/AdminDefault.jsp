@@ -60,7 +60,7 @@
 					<label><b>Customer ID</b></label>
 					<input type="number" class="form-control" name="customerId" placeholder="Enter Six Digit Customer ID" required />
 				</div>
-				<button type="submit">Login</button>
+				<button type="submit">View Customer</button>
 			</div>
 			<div class="container" style="background-color: #f1f1f1">
 				<button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
