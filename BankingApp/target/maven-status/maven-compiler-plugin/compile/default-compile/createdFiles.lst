@@ -12,6 +12,7 @@ com\bankingapp\service\IUserService.class
 com\bankingapp\service\IFundTransferService.class
 com\bankingapp\service\IRegistrationService.class
 com\bankingapp\service\ICredentialService.class
+com\bankingapp\confguration\BankingAppConfiguration.class
 com\bankingapp\dto\SecurityQuest.class
 com\bankingapp\dto\User.class
 com\bankingapp\service\IAdminService.class
@@ -36,6 +37,7 @@ com\bankingapp\exception\BankingException.class
 com\bankingapp\controller\UserController.class
 com\bankingapp\controller\CredentialController.class
 com\bankingapp\controller\AdminController.class
+com\bankingapp\confguration\BankingAppInitializer.class
 com\bankingapp\dao\IUserDAO.class
 com\bankingapp\dto\AccountMaster.class
 com\bankingapp\dao\CredentialDAO.class
