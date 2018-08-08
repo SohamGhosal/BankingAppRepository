@@ -26,16 +26,22 @@
 <title>Insert title here</title>
 </head>
 <body onload="noBack();">
-<table class="w3-table-all w3-card-4">
-	<tr>
-	<td>
-	<input type="button" onclick="location.href='CnfUser'" value="Confirm A Request" id="btnCnf"/></td>
-		<td>
-	<button onclick="document.getElementById('id07').style.display='block'"
-		style="width: auto;">Register A New Account</button>
-		</td>
-		</tr>
-		</table>
+<div class="modal" id="id09" style="display:block;">
+	<f:form role="form" class="modal-content animate">
+		<div class="imgcontainer">
+				<span onclick="location.href='adminhome'"
+					class="close" title="Close Modal">&times;</span>
+		</div>
+		<br>
+		<br>
+		<div class="container">
+			<div class="clearfix">
+			<button type="button" onclick="location.href='CnfUser'" id="btnCnf">Confirm A Request</button>
+			<button type="button" onclick="document.getElementById('id07').style.display='block'">Register A New Account</button>
+			</div>
+		</div>
+	</f:form>
+</div>
 <div id="id07" class="modal">
 	<f:form role="form" action="registerUser" method="post"
 			modelAttribute="customerRequest" class="modal-content animate" onsubmit="passWordCheck();">
@@ -44,7 +50,7 @@
 					class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container">
-				<h1>Sign Up</h1>
+				<label class="registerMsg">Sign Up</label>
 				<p>Please fill in this form to create an account.</p>
 				<hr>
 				<label><b>First Name : </b></label>
