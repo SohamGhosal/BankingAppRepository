@@ -1,15 +1,16 @@
 package com.bankingapp.dto;
+import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
-
 import javax.persistence.*;
-
 import org.hibernate.annotations.Proxy;
-
 @Entity
 @Proxy(lazy=false)
-public class ServiceTracker
+public class ServiceTracker implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8397036782220677743L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer serviceId;

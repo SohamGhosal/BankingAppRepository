@@ -1,13 +1,19 @@
 package com.bankingapp.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.Proxy;
 
 @Entity
 @Proxy(lazy=false)
-public class Customer
+public class Customer implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5606224771455760704L;
 	@Id
 	private Integer customerId;
 	private Integer accountId;

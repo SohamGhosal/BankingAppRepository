@@ -1,12 +1,19 @@
 package com.bankingapp.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 import org.hibernate.annotations.Proxy;
 @Entity
 @Proxy(lazy=false)
-public class BankAdmin {
+public class BankAdmin implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7121055691570123861L;
 	@Id
 	private String adminId;
 	private String adminPassword;

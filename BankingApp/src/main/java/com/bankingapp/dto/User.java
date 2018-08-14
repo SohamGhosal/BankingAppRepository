@@ -1,21 +1,24 @@
 package com.bankingapp.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
 import org.hibernate.annotations.Proxy;
 
 @Entity
 @Table(name="users")
 @Proxy(lazy=false)
-public class User
+public class User implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3449124225226660570L;
 	@Column(name="accountid")
 	private Integer accId;
 	@Id
