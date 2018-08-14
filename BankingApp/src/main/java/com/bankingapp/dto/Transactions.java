@@ -1,4 +1,5 @@
 package com.bankingapp.dto;
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.*;
@@ -7,8 +8,12 @@ import org.hibernate.annotations.Proxy;
 
 @Entity
 @Proxy(lazy=false)
-public class Transactions
+public class Transactions implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 596258876900350520L;
 	@Id
 	@Column(name="transactionid")
 	private Integer transId;

@@ -1,5 +1,6 @@
 package com.bankingapp.dto;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -12,8 +13,12 @@ import org.hibernate.annotations.Proxy;
 @Entity
 @Table(name="accountmaster")
 @Proxy(lazy=false)
-public class AccountMaster
+public class AccountMaster implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3679896461361914787L;
 	@Id
 	private Integer accountId;
 	private String accountType;

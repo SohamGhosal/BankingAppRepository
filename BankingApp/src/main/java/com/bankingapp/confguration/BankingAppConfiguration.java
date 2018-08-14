@@ -1,8 +1,10 @@
 package com.bankingapp.confguration;
 
+import java.io.PrintWriter;
 import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.context.annotation.Bean;
@@ -21,17 +23,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages="com.bankingapp.*")
 @EnableTransactionManagement
 public class BankingAppConfiguration implements WebMvcConfigurer{
+	
+	//For adding the resources such as images in the JSP
+	
 	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
 	}
-	
-// For Creating View Resolver
-	
+
+	// For Creating View Resolver
+
 	@Bean
 	public ViewResolver viewResolver()
 	{
@@ -41,22 +49,18 @@ public class BankingAppConfiguration implements WebMvcConfigurer{
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-	
-//For DataSource
-	
-	@Bean
-	public DriverManagerDataSource dataSource()
-	{
-		DriverManagerDataSource dataSource=new DriverManagerDataSource();
-		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		dataSource.setUsername("system");
-		dataSource.setPassword("soham");
+
+	//For DataSource (HikariCP)
+
+	@Bean(destroyMethod="close")
+	public DataSource dataSource()
+	{	HikariConfig hikariConfig = new HikariConfig(dsProperties());
+		HikariDataSource dataSource = new HikariDataSource(hikariConfig);
 		return dataSource;
 	}
-	
+
 	// Hibernate Mapping
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory()
 	{
@@ -69,7 +73,7 @@ public class BankingAppConfiguration implements WebMvcConfigurer{
 	}
 
 	// JPA Transaction Mapping
-	
+
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory emf)
 	{
@@ -87,8 +91,18 @@ public class BankingAppConfiguration implements WebMvcConfigurer{
 	Properties jpaProperties() {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.hbm2ddl.auto", "update");
-		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
+		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 		properties.setProperty("hibernate.show_sql", "true");
 		return properties;
+	}
+	Properties dsProperties()
+	{
+		Properties props = new Properties();
+		props.setProperty("dataSourceClassName", "org.postgresql.ds.PGSimpleDataSource");
+		props.setProperty("dataSource.user", "postgres");
+		props.setProperty("dataSource.password", "soham");
+		props.setProperty("dataSource.databaseName", "postgres");
+		props.put("dataSource.logWriter", new PrintWriter(System.out));
+		return props;
 	}
 }

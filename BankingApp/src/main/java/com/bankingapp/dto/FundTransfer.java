@@ -1,7 +1,12 @@
 package com.bankingapp.dto;
+import java.io.Serializable;
 import java.time.LocalDate;
-public class FundTransfer
+public class FundTransfer implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6018723658516846599L;
 	private Integer fundTransId;
 	private Integer accId;
 	private int payeeAccId;

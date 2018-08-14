@@ -1,13 +1,19 @@
 package com.bankingapp.dto;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 import org.hibernate.annotations.Proxy;
 @Entity
 @Proxy(lazy=false)
-public class CustomerRequests
+public class CustomerRequests implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5159401544235909396L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="customerreqid")
