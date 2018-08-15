@@ -1,20 +1,18 @@
 package com.bankingapp.dao;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import com.bankingapp.dto.CustomerRequests;
 import com.bankingapp.dto.User;
 import com.bankingapp.exception.BankingException;
 import com.bankingapp.util.QueryMapper;
+
 @Repository("credentialDao")
 @Transactional
 public class CredentialDAO implements ICredentialDAO{
@@ -23,8 +21,7 @@ public class CredentialDAO implements ICredentialDAO{
 	EntityManager em;
 	@Override
 	public String generateNewPassword(User user) throws BankingException {
-		String uuid = UUID.randomUUID().toString();
-		String pass=uuid.substring(0, 4)+"#";
+		String pass=RandomStringUtils.randomAlphanumeric(6,6)+"#";
 		try {
 			user.setPassword(pass);
 			em.merge(user);
@@ -59,7 +56,7 @@ public class CredentialDAO implements ICredentialDAO{
 		try
 		{
 			CustomerRequests crs=query.getSingleResult();
-			return cr;
+			return crs;
 		}
 		catch(PersistenceException e) {
 			throw new BankingException("Customer Request Not found");

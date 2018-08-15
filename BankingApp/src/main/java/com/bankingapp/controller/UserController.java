@@ -1,13 +1,10 @@
 package com.bankingapp.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.bankingapp.dto.AccountMaster;
 import com.bankingapp.dto.BankAdmin;
 import com.bankingapp.dto.Customer;
@@ -177,8 +173,7 @@ if(us.getPassword().equals(sessionUser.getPassword())&&!(us.getTransPassword().e
 		int accid=((AccountMaster)session.getAttribute("acc")).getAccountId();
 		st.setAccId(accid);
 		st.setServiceDesc("Request For CheckBook");
-		LocalDate todays_date=LocalDate.now();
-		st.setServiceRaiseDate(Date.valueOf(todays_date));
+		st.setServiceRaiseDate(LocalDate.now());
 		st.setServiceStatus("Open");
 		try {
 			userService.checkPendingRequest(accid);

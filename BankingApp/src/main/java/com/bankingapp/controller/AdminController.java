@@ -19,6 +19,7 @@ import com.bankingapp.dto.User;
 import com.bankingapp.exception.BankingException;
 import com.bankingapp.service.AdminService;
 import com.bankingapp.service.IAdminService;
+
 @Controller("/BankAdmin")
 public class AdminController extends BankController{
 	@Autowired

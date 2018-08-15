@@ -1,8 +1,12 @@
 package com.bankingapp.dto;
 import java.io.Serializable;
-import java.sql.Date;
-import javax.persistence.*;
+import java.time.LocalDate;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import org.hibernate.annotations.Proxy;
+
 @Entity
 @Proxy(lazy=false)
 public class ServiceTracker implements Serializable
@@ -14,17 +18,15 @@ public class ServiceTracker implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer serviceId;
-	@Column(name="servicedescription")
 	private String serviceDesc;
-	@Column(name="accountid")
-	private int accId;
-	@Column(name="serviceraiseddate")
-	private Date serviceRaiseDate;
+	private Integer accId;
+	private LocalDate serviceRaiseDate;
 	private String serviceStatus;
-	public int getServiceId() {
+	
+	public Integer getServiceId() {
 		return serviceId;
 	}
-	public void setServiceId(int serviceId) {
+	public void setServiceId(Integer serviceId) {
 		this.serviceId = serviceId;
 	}
 	public String getServiceDesc() {
@@ -33,16 +35,16 @@ public class ServiceTracker implements Serializable
 	public void setServiceDesc(String serviceDesc) {
 		this.serviceDesc = serviceDesc;
 	}
-	public int getAccId() {
+	public Integer getAccId() {
 		return accId;
 	}
-	public void setAccId(int accId) {
+	public void setAccId(Integer accId) {
 		this.accId = accId;
 	}
-	public Date getServiceRaiseDate() {
+	public LocalDate getServiceRaiseDate() {
 		return serviceRaiseDate;
 	}
-	public void setServiceRaiseDate(Date serviceRaiseDate) {
+	public void setServiceRaiseDate(LocalDate serviceRaiseDate) {
 		this.serviceRaiseDate = serviceRaiseDate;
 	}
 	public String getServiceStatus() {
@@ -51,4 +53,5 @@ public class ServiceTracker implements Serializable
 	public void setServiceStatus(String serviceStatus) {
 		this.serviceStatus = serviceStatus;
 	}
+	
 }

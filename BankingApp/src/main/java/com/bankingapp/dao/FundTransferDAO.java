@@ -1,21 +1,19 @@
 package com.bankingapp.dao;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Random;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import com.bankingapp.dto.AccountMaster;
 import com.bankingapp.dto.PayeeTable;
+import com.bankingapp.dto.TransactionId;
 import com.bankingapp.dto.Transactions;
 import com.bankingapp.exception.BankingException;
+
 @Repository("fundTransferDao")
 @Transactional
 public class FundTransferDAO implements IFundTransferDAO {
@@ -38,98 +36,46 @@ public class FundTransferDAO implements IFundTransferDAO {
 	@Override
 	public void transferFund(PayeeTable pt)
 	{
-		AccountMaster acc=new AccountMaster();
-		LocalDate dt=LocalDate.now();
-		Date date=Date.valueOf(dt);
-		acc=em.getReference(AccountMaster.class, pt.getAccId());
-		long accBal=acc.getAccountBal();
-		acc.setAccountBal(accBal-pt.getAmount());
-		em.persist(acc);
-		int tid1=0;
 		try
 		{
-			do
-			{
-				tid1=this.getTransId();
-				if(this.checkTransId(tid1)==true)
-				{
-					break;
-				}
-			}
-			while(true);
-		}
-		catch (BankingException e)
-		{
-			e.printStackTrace();
-		}
-		Transactions tr1=new Transactions();
-		tr1.setAccountNo(acc.getAccountId());
-		tr1.setTransAmt(pt.getAmount());
-		tr1.setTransDate(date);
-		tr1.setTransDesc("Debit to Account No "+pt.getPayeeAccId());
-		tr1.setTransType("d");
-		tr1.setTransId(tid1);
-		em.persist(tr1);
-		AccountMaster payeeacc=new AccountMaster();
-		payeeacc=em.getReference(AccountMaster.class, pt.getAccId());
-		long payeeAccBal=payeeacc.getAccountBal();
-		payeeacc.setAccountBal(payeeAccBal+pt.getAmount());
-		em.persist(payeeacc);
-		int tid2=0;
-		try
-		{
-			do
-			{
-				tid2=this.getTransId();
-				if(this.checkTransId(tid2)==true)
-				{
-					break;
-				}
-			}
-			while(true);
+			AccountMaster acc=new AccountMaster();
+			acc=em.getReference(AccountMaster.class, pt.getAccId());
+			long accBal=acc.getAccountBal();
+			acc.setAccountBal(accBal-pt.getAmount());
+			em.merge(acc);
+			int tid=Integer.parseInt(RandomStringUtils.randomNumeric(6,6));
+			Transactions tr1=new Transactions();
+			tr1.setAccountNo(acc.getAccountId());
+			tr1.setTransAmt(pt.getAmount());
+			tr1.setTransDate(LocalDate.now());
+			tr1.setTransDesc("Debit from Account No "+pt.getPayeeAccId());
+			TransactionId t1=new TransactionId();
+			t1.setTransId(tid);
+			t1.settransType("d");
+			tr1.setTransactionId(t1);
+			em.persist(tr1);
+			em.flush();
+			AccountMaster payeeacc=new AccountMaster();
+			payeeacc=em.getReference(AccountMaster.class, pt.getPayeeAccId());
+			long payeeAccBal=payeeacc.getAccountBal();
+			payeeacc.setAccountBal(payeeAccBal+pt.getAmount());
+			em.merge(payeeacc);
+			Transactions tr2=new Transactions();
+			tr2.setAccountNo(payeeacc.getAccountId());
+			tr2.setTransAmt(pt.getAmount());
+			tr2.setTransDate(LocalDate.now());
+			tr2.setTransDesc("Credit to Account No "+pt.getAccId());
+			TransactionId t2=new TransactionId();
+			t2.setTransId(tid);
+			t2.settransType("c");
+			tr2.setTransactionId(t2);
+			em.persist(tr2);
+			em.flush();
+			logger.info("Transaction Successful!");
 		}
 		catch (BankingException e)
 		{
 			System.out.println(e.getMessage());
 		}
-		Transactions tr2=new Transactions();
-		tr2.setAccountNo(payeeacc.getAccountId());
-		tr2.setTransAmt(pt.getAmount());
-		tr2.setTransDate(date);
-		tr2.setTransDesc("Credit from Account No "+pt.getAccId());
-		tr2.setTransType("c");
-		tr2.setTransId(tid2);
-		em.persist(tr2);
-		em.flush();
-		logger.info("Transaction Successful!");
 	}
-	public int getTransId()
-	{
-		Random r=new Random();
-		int transid=400000+(int)(r.nextFloat()*521900);
-		return transid;
-	}
-
-	public boolean checkTransId(int tid) throws BankingException
-	{
-		boolean res=true;
-		try
-		{
-			Transactions tr=em.getReference(Transactions.class, tid);
-			if(tr.getTransId()==0)
-			{
-				res=true;
-			}
-			else
-			{
-				res=false;
-			}
-		}
-		catch(PersistenceException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return res;
-	}
-
 }

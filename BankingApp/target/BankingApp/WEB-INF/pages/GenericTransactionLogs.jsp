@@ -40,19 +40,18 @@
 <c:forEach items="${transaction}" var="transaction">
 <c:if test="${tLog=='mini' }">
 <tr>
-<td>${transaction.transId}</td>
+<td>${transaction.transactionId.transId}</td>
 <td>${transaction.accountNo}</td>
 <td>${transaction.transAmt}</td>
 </tr>
 </c:if>
 <c:if test="${tLog=='detailed' }">
 <tr>
-<td>${transaction.transId}</td>
+<td>${transaction.transactionId.transId}</td>
 <td>${transaction.accountNo}</td>
 <td>${transaction.transAmt}</td>
-<td>${transaction.transType}</td>
-<td><fmt:formatDate type = "date" 
-         dateStyle = "short" value = "${transaction.transDate}" /></td>
+<td>${transaction.transactionId.transType == 'd' ? 'Debit':'Credit'}</td>
+<td>${transaction.transDate}</td>
 <td>${transaction.transDesc}</td>
 </tr>
 </c:if>

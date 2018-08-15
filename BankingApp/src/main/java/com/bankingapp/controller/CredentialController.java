@@ -58,7 +58,7 @@ public class CredentialController extends BankController{
 		}
 		else
 		{
-			if(us.getAns().equals(user.getAns()))
+			if(us.getAnswer().equals(user.getAnswer()))
 			{
 				String password;
 				try {

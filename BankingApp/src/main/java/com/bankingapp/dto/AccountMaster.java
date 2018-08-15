@@ -1,17 +1,12 @@
 package com.bankingapp.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
-
-import javax.persistence.Column;
+import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.Proxy;
 
 @Entity
-@Table(name="accountmaster")
 @Proxy(lazy=false)
 public class AccountMaster implements Serializable
 {
@@ -22,9 +17,8 @@ public class AccountMaster implements Serializable
 	@Id
 	private Integer accountId;
 	private String accountType;
-	@Column(name="accountbalance")
 	private Long accountBal;
-	private Date openDate;
+	private LocalDate openDate;
 	private Integer reqId;
 	private String chequeStatus;
 	public Integer getAccountId() {
@@ -45,10 +39,10 @@ public class AccountMaster implements Serializable
 	public void setAccountBal(Long accountBal) {
 		this.accountBal = accountBal;
 	}
-	public Date getOpenDate() {
+	public LocalDate getOpenDate() {
 		return openDate;
 	}
-	public void setOpenDate(Date openDate) {
+	public void setOpenDate(LocalDate openDate) {
 		this.openDate = openDate;
 	}
 	public Integer getReqId() {
@@ -63,4 +57,5 @@ public class AccountMaster implements Serializable
 	public void setChequeStatus(String chequeStatus) {
 		this.chequeStatus = chequeStatus;
 	}
+	
 }

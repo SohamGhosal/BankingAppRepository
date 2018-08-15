@@ -1,9 +1,8 @@
 package com.bankingapp.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
-
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import org.hibernate.annotations.Proxy;
 
 @Entity
@@ -17,13 +16,12 @@ public class Customer implements Serializable
 	@Id
 	private Integer customerId;
 	private Integer accountId;
-	@Column(name="customername")
 	private String custName;
 	private String email;
 	private String address;
-	@Column(name="pancard")
 	private String panNo;
 	private String mobileNo;
+	
 	public int getCustomerId() {
 		return customerId;
 	}

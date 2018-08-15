@@ -4,6 +4,7 @@ public class PayeeTable
 	private Integer accId;
 	private Integer payeeAccId;
 	private Long amount;
+	
 	public Integer getAccId() {
 		return accId;
 	}
