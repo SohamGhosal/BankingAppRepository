@@ -1,11 +1,16 @@
 package com.bankingapp.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Proxy;
+
 @Entity
 @Proxy(lazy=false)
 public class CustomerRequests implements Serializable
@@ -16,27 +21,29 @@ public class CustomerRequests implements Serializable
 	private static final long serialVersionUID = 5159401544235909396L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	@Column(name="customerreqid")
 	private Integer custReqId;
-	@Column(name="customername")
 	private String custName;
-	@Column(unique=true)
 	@Email(message="Email is not valid")
+	@NotBlank
 	private String email;
-	@Column(name="phoneno")
+	@NotBlank
 	private String mobileNo;
+	@NotBlank
 	private String address;
-	@Column(name="pancard")
+	@NotBlank
 	private String panNo;
+	@NotBlank
 	private String accountType;
-	@Column(name="accountbalance")
-	private long accountBal;
+	@NotNull
+	private Long accountBal;
+	@NotBlank
 	private String status;
+	@NotBlank
 	private String secretQuest;
-	@Column(name="answer")
-	private String ans;
+	@NotBlank
+	private String answer;
+	@NotBlank
 	private String chequeStatus;
-	
 	public Integer getCustReqId() {
 		return custReqId;
 	}
@@ -79,10 +86,10 @@ public class CustomerRequests implements Serializable
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
-	public long getAccountBal() {
+	public Long getAccountBal() {
 		return accountBal;
 	}
-	public void setAccountBal(long accountBal) {
+	public void setAccountBal(Long accountBal) {
 		this.accountBal = accountBal;
 	}
 	public String getStatus() {
@@ -97,11 +104,11 @@ public class CustomerRequests implements Serializable
 	public void setSecretQuest(String secretQuest) {
 		this.secretQuest = secretQuest;
 	}
-	public String getAns() {
-		return ans;
+	public String getAnswer() {
+		return answer;
 	}
-	public void setAns(String ans) {
-		this.ans = ans;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	public String getChequeStatus() {
 		return chequeStatus;
@@ -109,4 +116,5 @@ public class CustomerRequests implements Serializable
 	public void setChequeStatus(String chequeStatus) {
 		this.chequeStatus = chequeStatus;
 	}
+	
 }

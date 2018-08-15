@@ -12,6 +12,7 @@ D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\confguration\BankingAp
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\controller\BankController.java
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\controller\RegistrationController.java
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\controller\CredentialController.java
+D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\dto\TransactionId.java
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\controller\UserController.java
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\dto\ServiceTracker.java
 D:\Git\BankingApp\BankingApp\src\main\java\com\bankingapp\dao\IGenericBankDAO.java

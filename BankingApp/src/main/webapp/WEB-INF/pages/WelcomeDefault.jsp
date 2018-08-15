@@ -64,7 +64,9 @@
 			</div>
 			<div class="container">
 				<div class="form-group">
-					<label>Your account no : </label><label>${user.accId}</label> <input
+					<label>Your account no : </label><label>${user.accId}</label><br>
+					<labeL><b>Your Account Balance : </b></labeL><label>${acc.accountBal}</label><br>
+					 <input
 						type="hidden" name="accId" value="${user.accId}" /> <br> <label>Payee
 						account no : </label> <input name="payeeAccId" type="number"
 						required="required" /> <label>Amount : </label> <input
@@ -113,6 +115,7 @@
 			<div class="container">
 				<label class="registerMsg">View/Edit Details</label>
 				<hr>
+				<labeL><b>Account Balance : </b></labeL><label>${acc.accountBal}</label><br>
 				<label><b>Account Id : </b></label><label>${acc.accountId}</label><br>
 				<label><b>Customer Id : </b></label><label>${cus.customerId}</label><br>
 				<label><b>Customer Name : </b></label><label>${cus.custName}</label><br>

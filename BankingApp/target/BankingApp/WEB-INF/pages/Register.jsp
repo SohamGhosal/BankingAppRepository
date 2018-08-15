@@ -72,7 +72,7 @@
 				</c:forEach>
 				</f:select><br>
 				<label><b>Answer : </b></label>
-				<f:input type="text" path="ans" placeholder="Answer the Question" required="required"/><br>
+				<f:input type="text" path="answer" placeholder="Answer the Question" required="required"/><br>
 				<label>Choose Account Type : </label>
 				<f:radiobutton path="accountType" value="savings" required="required"/>Savings
 				<f:radiobutton path="accountType" value="current" required="required"/>Current<br>
@@ -82,7 +82,7 @@
 				<input type="checkbox" checked="checked" style="margin-bottom: 15px">
 				<label>Remember me</label>
 				<p>
-					By creating an account you agree to our <a onclick="document.getElementById('id08').style.display='block'">Terms & Privacy</a>.
+					By creating an account you agree to our <a onclick="document.getElementById('id08').style.display='block'">Terms <%="&"%> Privacy</a>.
 				</p>
 				<div class="clearfix">
 					<button type="button"
@@ -100,7 +100,7 @@
 					class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container">
-	<p>No Terms & Conditions</p>
+	<p>No Terms <%="&"%> Conditions</p>
 	</div>
 	</form>
 	</div>

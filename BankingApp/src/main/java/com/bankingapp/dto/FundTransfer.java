@@ -9,13 +9,14 @@ public class FundTransfer implements Serializable
 	private static final long serialVersionUID = 6018723658516846599L;
 	private Integer fundTransId;
 	private Integer accId;
-	private int payeeAccId;
+	private Integer payeeAccId;
 	private LocalDate transDate;
-	private long transAmt;
-	public int getFundTransId() {
+	private Long transAmt;
+	
+	public Integer getFundTransId() {
 		return fundTransId;
 	}
-	public void setFundTransId(int fundTransId) {
+	public void setFundTransId(Integer fundTransId) {
 		this.fundTransId = fundTransId;
 	}
 	public Integer getAccId() {
@@ -24,10 +25,10 @@ public class FundTransfer implements Serializable
 	public void setAccId(Integer accId) {
 		this.accId = accId;
 	}
-	public int getPayeeAccId() {
+	public Integer getPayeeAccId() {
 		return payeeAccId;
 	}
-	public void setPayeeAccId(int payeeAccId) {
+	public void setPayeeAccId(Integer payeeAccId) {
 		this.payeeAccId = payeeAccId;
 	}
 	public LocalDate getTransDate() {
@@ -36,10 +37,10 @@ public class FundTransfer implements Serializable
 	public void setTransDate(LocalDate transDate) {
 		this.transDate = transDate;
 	}
-	public long getTransAmt() {
+	public Long getTransAmt() {
 		return transAmt;
 	}
-	public void setTransAmt(long transAmt) {
+	public void setTransAmt(Long transAmt) {
 		this.transAmt = transAmt;
 	}
 	

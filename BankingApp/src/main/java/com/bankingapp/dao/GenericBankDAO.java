@@ -39,7 +39,8 @@ public class GenericBankDAO implements IGenericBankDAO
 			query=em.createQuery(QueryMapper.getUser,User.class);
 			query.setParameter("uid",user.getUserId());
 			query.setParameter("password", user.getPassword());
-			query.setParameter("lock", "N");
+			user.setLockStatus("N");
+			query.setParameter("lock", user.getLockStatus());
 		}
 		try
 		{

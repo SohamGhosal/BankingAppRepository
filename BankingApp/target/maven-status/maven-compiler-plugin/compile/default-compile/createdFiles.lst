@@ -5,6 +5,7 @@ com\bankingapp\service\FundTransferService.class
 com\bankingapp\dao\IAdminDAO.class
 com\bankingapp\dao\RegistrationDAO.class
 com\bankingapp\controller\BankController.class
+com\bankingapp\dto\TransactionId.class
 com\bankingapp\dto\CustomerRequests.class
 com\bankingapp\dto\BankAdmin.class
 com\bankingapp\service\CredentialService.class

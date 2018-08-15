@@ -1,12 +1,9 @@
 package com.bankingapp.controller;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.bankingapp.dto.AccountMaster;
 import com.bankingapp.dto.Customer;
 import com.bankingapp.dto.CustomerRequests;
@@ -80,27 +76,23 @@ public class RegistrationController extends BankController{
 		boolean res;
 		try {
 			CustomerRequests custReq=registrationService.getCustReq(custReqId);
-			String uuid = UUID.randomUUID().toString();
-			String upass=uuid.substring(0, 4)+"#";
-			String uuid1 = UUID.randomUUID().toString();
-			String tpass=uuid1.substring(0, 4)+"#";
-			acc.setAccountId(generatePin());
+			acc.setAccountId(Integer.parseInt(RandomStringUtils.randomNumeric(6,6)));
 			us.setAccId(acc.getAccountId());
-			us.setAns(custReq.getAns());
+			us.setAnswer(custReq.getAnswer());
 			us.setLockStatus("N");
-			us.setPassword(upass);
+			us.setPassword(RandomStringUtils.randomAlphanumeric(6,6)+"#");
 			us.setSecretQues(custReq.getSecretQuest());
-			us.setTransPassword(tpass);
-			us.setUserId(generatePin());
+			us.setTransPassword(RandomStringUtils.randomAlphanumeric(6,6)+"#");
+			us.setUserId(Integer.parseInt(RandomStringUtils.randomNumeric(6,6)));
 			acc.setAccountBal(custReq.getAccountBal());
 			acc.setAccountType(custReq.getAccountType());
 			acc.setChequeStatus(custReq.getChequeStatus());
-			acc.setOpenDate(Date.valueOf(LocalDate.now()));
+			acc.setOpenDate(LocalDate.now());
 			acc.setReqId(custReq.getCustReqId());
 			cust.setAccountId(us.getAccId());
 			cust.setAddress(custReq.getAddress());
 			cust.setCustName(custReq.getCustName());
-			cust.setCustomerId(generatePin());
+			cust.setCustomerId(Integer.parseInt(RandomStringUtils.randomNumeric(6,6)));
 			cust.setEmail(custReq.getEmail());
 			cust.setMobileNo(custReq.getMobileNo());
 			cust.setPanNo(custReq.getPanNo());

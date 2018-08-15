@@ -79,7 +79,7 @@
 				<p>
 					By creating an account you agree to our <a
 						onclick="document.getElementById('id03').style.display='block'">Terms
-						& Privacy</a>.
+						<%="&"%> Privacy</a>.
 				</p>
 
 
@@ -124,7 +124,7 @@
 					</c:forEach>
 				</f:select>
 				<br> <label><b>Answer : </b></label>
-				<f:input type="text" path="ans" placeholder="Answer the Question"
+				<f:input type="text" path="answer" placeholder="Answer the Question"
 					required="required" />
 				<br> <label>Choose Account Type : </label>
 				<f:radiobutton path="accountType" value="savings"
@@ -141,7 +141,7 @@
 				<p>
 					By creating an account you agree to our <a
 						onclick="document.getElementById('id03').style.display='block'">Terms
-						& Privacy</a>.
+						<%="&"%> Privacy</a>.
 				</p>
 				<div class="clearfix">
 					<button type="button"
@@ -159,7 +159,7 @@
 					class="close" title="Close Modal">&times;</span>
 			</div>
 			<div class="container">
-				<label>No Terms  Conditions</label>
+				<label>No Terms <%="&"%> Conditions</label>
 			</div>
 		</form>
 	</div>

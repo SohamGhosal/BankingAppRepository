@@ -19,21 +19,15 @@ public class User implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 3449124225226660570L;
-	@Column(name="accountid")
 	private Integer accId;
 	@Id
 	@Min(value=100000,message="Invalid User ID")
 	@Max(value=999999,message="Invalid User ID")
 	private Integer userId;
-	@Column(name="loginpassword")
-	private String Password;
-	@Column(name="secretquestion")
+	private String password;
 	private String secretQues;
-	@Column(name="answer")
-	private String Ans;
-	@Column(name="tansactionpassword")
+	private String answer;
 	private String transPassword;
-	@Column(name="lockstatus")
 	private String lockStatus;
 	public Integer getAccId() {
 		return accId;
@@ -48,10 +42,10 @@ public class User implements Serializable
 		this.userId = userId;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public String getSecretQues() {
 		return secretQues;
@@ -59,11 +53,11 @@ public class User implements Serializable
 	public void setSecretQues(String secretQues) {
 		this.secretQues = secretQues;
 	}
-	public String getAns() {
-		return Ans;
+	public String getAnswer() {
+		return answer;
 	}
-	public void setAns(String ans) {
-		Ans = ans;
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 	public String getTransPassword() {
 		return transPassword;

@@ -1,37 +1,31 @@
 package com.bankingapp.dto;
+
 import java.io.Serializable;
-import java.sql.Date;
-
-import javax.persistence.*;
-
+import java.time.LocalDate;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import org.hibernate.annotations.Proxy;
 
 @Entity
 @Proxy(lazy=false)
 public class Transactions implements Serializable
 {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 596258876900350520L;
-	@Id
-	@Column(name="transactionid")
-	private Integer transId;
-	@Column(name="transdescription")
+	private static final long serialVersionUID = 7170595873076698277L;
+	@EmbeddedId
+	private TransactionId transactionId;
 	private String transDesc;
-	@Column(name="dateoftransaction")
-	private Date transDate;
-	@Column(name="transactiontype")
-	private String transType;
-	@Column(name="tranamount")
-	private long transAmt;
-	@Column(name="accountid")
-	private int accountNo;
-	public int getTransId() {
-		return transId;
+	private LocalDate transDate;
+	private Long transAmt;
+	private Integer accountNo;
+	public TransactionId getTransactionId() {
+		return transactionId;
 	}
-	public void setTransId(int transId) {
-		this.transId = transId;
+	public void setTransactionId(TransactionId transactionId) {
+		this.transactionId = transactionId;
 	}
 	public String getTransDesc() {
 		return transDesc;
@@ -39,28 +33,23 @@ public class Transactions implements Serializable
 	public void setTransDesc(String transDesc) {
 		this.transDesc = transDesc;
 	}
-	public Date getTransDate() {
+	public LocalDate getTransDate() {
 		return transDate;
 	}
-	public void setTransDate(Date transDate) {
+	public void setTransDate(LocalDate transDate) {
 		this.transDate = transDate;
 	}
-	public String getTransType() {
-		return transType;
-	}
-	public void setTransType(String transType) {
-		this.transType = transType;
-	}
-	public long getTransAmt() {
+	public Long getTransAmt() {
 		return transAmt;
 	}
-	public void setTransAmt(long transAmt) {
+	public void setTransAmt(Long transAmt) {
 		this.transAmt = transAmt;
 	}
-	public int getAccountNo() {
+	public Integer getAccountNo() {
 		return accountNo;
 	}
-	public void setAccountNo(int accountNo) {
+	public void setAccountNo(Integer accountNo) {
 		this.accountNo = accountNo;
 	}
+	
 }
