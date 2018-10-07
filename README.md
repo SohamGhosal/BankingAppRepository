@@ -3,7 +3,7 @@
 
 
 Technologies Used:
-Oracle DB;
+PostgreSQL DB;
 Java 11;
 JPA with Hibernate;
 Spring 5 MVC;
