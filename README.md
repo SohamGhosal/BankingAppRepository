@@ -3,6 +3,7 @@
 
 
 Technologies Used:
+
 PostgreSQL DB;
 Java 11;
 JPA with Hibernate;
