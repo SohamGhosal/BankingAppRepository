@@ -1,19 +1,17 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.IRegistrationDAO;
+import com.BankingApp.dto.AccountMaster;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.CustomerRequests;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.IRegistrationDAO;
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service("registrationService")
 @Transactional
 public class RegistrationService implements IRegistrationService {

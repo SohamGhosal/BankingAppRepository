@@ -1,6 +1,11 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,11 +13,14 @@ import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.hibernate.annotations.Proxy;
+import java.io.Serializable;
 
 @Entity
 @Proxy(lazy=false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerRequests implements Serializable
 {
 	/**
@@ -44,77 +52,4 @@ public class CustomerRequests implements Serializable
 	private String answer;
 	@NotBlank
 	private String chequeStatus;
-	public Integer getCustReqId() {
-		return custReqId;
-	}
-	public void setCustReqId(Integer custReqId) {
-		this.custReqId = custReqId;
-	}
-	public String getCustName() {
-		return custName;
-	}
-	public void setCustName(String custName) {
-		this.custName = custName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getMobileNo() {
-		return mobileNo;
-	}
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getPanNo() {
-		return panNo;
-	}
-	public void setPanNo(String panNo) {
-		this.panNo = panNo;
-	}
-	public String getAccountType() {
-		return accountType;
-	}
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
-	public Long getAccountBal() {
-		return accountBal;
-	}
-	public void setAccountBal(Long accountBal) {
-		this.accountBal = accountBal;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getSecretQuest() {
-		return secretQuest;
-	}
-	public void setSecretQuest(String secretQuest) {
-		this.secretQuest = secretQuest;
-	}
-	public String getAnswer() {
-		return answer;
-	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-	public String getChequeStatus() {
-		return chequeStatus;
-	}
-	public void setChequeStatus(String chequeStatus) {
-		this.chequeStatus = chequeStatus;
-	}
-	
 }

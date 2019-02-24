@@ -1,13 +1,22 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import org.hibernate.annotations.Proxy;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Proxy(lazy=false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Transactions implements Serializable
 {
 	
@@ -21,35 +30,4 @@ public class Transactions implements Serializable
 	private LocalDate transDate;
 	private Long transAmt;
 	private Integer accountNo;
-	public TransactionId getTransactionId() {
-		return transactionId;
-	}
-	public void setTransactionId(TransactionId transactionId) {
-		this.transactionId = transactionId;
-	}
-	public String getTransDesc() {
-		return transDesc;
-	}
-	public void setTransDesc(String transDesc) {
-		this.transDesc = transDesc;
-	}
-	public LocalDate getTransDate() {
-		return transDate;
-	}
-	public void setTransDate(LocalDate transDate) {
-		this.transDate = transDate;
-	}
-	public Long getTransAmt() {
-		return transAmt;
-	}
-	public void setTransAmt(Long transAmt) {
-		this.transAmt = transAmt;
-	}
-	public Integer getAccountNo() {
-		return accountNo;
-	}
-	public void setAccountNo(Integer accountNo) {
-		this.accountNo = accountNo;
-	}
-	
 }

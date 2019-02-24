@@ -1,18 +1,17 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.IAdminDAO;
+import com.BankingApp.dto.BankAdmin;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.ServiceTracker;
+import com.BankingApp.dto.Transactions;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.IAdminDAO;
-import com.bankingapp.dto.BankAdmin;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service("adminService")
 @Transactional
 public class AdminService implements IAdminService {

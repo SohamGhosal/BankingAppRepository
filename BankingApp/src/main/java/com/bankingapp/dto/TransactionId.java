@@ -1,11 +1,19 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.Embeddable;
-
 @Embeddable
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TransactionId implements Serializable{
 
 	/**
@@ -14,18 +22,6 @@ public class TransactionId implements Serializable{
 	private static final long serialVersionUID = 5117755968510462488L;
 	private Integer transId;
 	private String transType;
-	public Integer getTransId() {
-		return transId;
-	}
-	public void setTransId(Integer transId) {
-		this.transId = transId;
-	}
-	public String gettransType() {
-		return transType;
-	}
-	public void settransType(String transType) {
-		this.transType = transType;
-	}
 	@Override
 	public boolean equals(Object obj) {
 		if(this==obj)
@@ -34,11 +30,11 @@ public class TransactionId implements Serializable{
 			return false;
 		TransactionId that=(TransactionId) obj;
 		return Objects.equals(getTransId(), that.getTransId()) &&
-				Objects.equals(gettransType(), that.gettransType());
+				Objects.equals(getTransType(), that.getTransType());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getTransId(), gettransType());
+		return Objects.hash(getTransId(), getTransType());
 	}
 }

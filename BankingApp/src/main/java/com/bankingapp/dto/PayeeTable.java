@@ -1,26 +1,17 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PayeeTable
 {
 	private Integer accId;
 	private Integer payeeAccId;
 	private Long amount;
-	
-	public Integer getAccId() {
-		return accId;
-	}
-	public void setAccId(Integer accId) {
-		this.accId = accId;
-	}
-	public Integer getPayeeAccId() {
-		return payeeAccId;
-	}
-	public void setPayeeAccId(Integer payeeAccId) {
-		this.payeeAccId = payeeAccId;
-	}
-	public Long getAmount() {
-		return amount;
-	}
-	public void setAmount(Long amount) {
-		this.amount = amount;
-	}
 }

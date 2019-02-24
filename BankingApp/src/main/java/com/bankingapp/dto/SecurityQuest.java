@@ -1,14 +1,22 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
-import org.hibernate.annotations.Proxy;
 @Entity
 @Proxy(lazy=false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class SecurityQuest implements Serializable{
 	/**
 	 * 
@@ -18,18 +26,4 @@ public class SecurityQuest implements Serializable{
 	private Integer securityQid;
 	@NotBlank
 	private String securityQuest;
-	
-	public Integer getSecurityQid() {
-		return securityQid;
-	}
-	public void setSecurityQid(Integer securityQid) {
-		this.securityQid = securityQid;
-	}
-	public String getSecurityQuest() {
-		return securityQuest;
-	}
-	public void setSecurityQuest(String securityQuest) {
-		this.securityQuest = securityQuest;
-	}
-	
 }

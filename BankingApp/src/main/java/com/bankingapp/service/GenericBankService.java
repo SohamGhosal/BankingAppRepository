@@ -1,22 +1,13 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.IGenericBankDAO;
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.IGenericBankDAO;
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.PayeeTable;
-import com.bankingapp.dto.SecurityQuest;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service("bankService")
 @Transactional

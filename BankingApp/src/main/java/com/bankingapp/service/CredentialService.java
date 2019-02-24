@@ -1,14 +1,14 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.ICredentialDAO;
+import com.BankingApp.dto.CustomerRequests;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.ICredentialDAO;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+
 @Service("credentialService")
 @Transactional
 public class CredentialService implements ICredentialService{

@@ -1,10 +1,12 @@
-package com.bankingapp.controller;
+package com.BankingApp.controller;
 
-import java.time.LocalDate;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
+import com.BankingApp.service.IRegistrationService;
+import com.BankingApp.service.RegistrationService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,18 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.SecurityQuest;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
-import com.bankingapp.service.IRegistrationService;
-import com.bankingapp.service.RegistrationService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.List;
 
 @Controller("/Register")
 public class RegistrationController extends BankController{
-	private static Logger logger=Logger.getLogger(RegistrationController.class);
+	private static Logger logger= LogManager.getLogger(RegistrationController.class);
 	@Autowired
 	IRegistrationService registrationService=new RegistrationService();
 	@RequestMapping(value="/registerUser",method=RequestMethod.POST)
@@ -108,6 +106,7 @@ public class RegistrationController extends BankController{
 				return new ModelAndView("ViewCustReq","msg","Error Occured");
 			}
 		} catch (BankingException e) {
+			logger.error("Registration Failed!"+e);
 			return new ModelAndView("ViewCustReq","msg","Error Occured");
 		}
 

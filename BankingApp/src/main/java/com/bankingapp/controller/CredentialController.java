@@ -1,9 +1,11 @@
-package com.bankingapp.controller;
+package com.BankingApp.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import org.apache.log4j.Logger;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
+import com.BankingApp.service.CredentialService;
+import com.BankingApp.service.ICredentialService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -12,14 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
-import com.bankingapp.service.CredentialService;
-import com.bankingapp.service.ICredentialService;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller("/ControlCredential")
 public class CredentialController extends BankController{
-	private static Logger logger=Logger.getLogger(CredentialController.class);
+	private static Logger logger= LogManager.getLogger(CredentialController.class);
 	@Autowired
 	ICredentialService credentialService=new CredentialService();
 	@RequestMapping(value="/ForgotAccount",method=RequestMethod.POST)

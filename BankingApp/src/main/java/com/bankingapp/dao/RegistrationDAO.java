@@ -1,26 +1,26 @@
-package com.bankingapp.dao;
+package com.BankingApp.dao;
 
-import java.util.List;
+import com.BankingApp.dto.AccountMaster;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.CustomerRequests;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
+import com.BankingApp.util.QueryMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
-
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
-import com.bankingapp.util.QueryMapper;
 @Repository("registrationDAO")
 @Transactional
 public class RegistrationDAO implements IRegistrationDAO {
-	private static Logger logger=Logger.getLogger(RegistrationDAO.class);
+	private static Logger logger= LogManager.getLogger(RegistrationDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override

@@ -1,12 +1,9 @@
-package com.bankingapp.dao;
-import java.util.List;
+package com.BankingApp.dao;
 
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.SecurityQuest;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
+
+import java.util.List;
 
 public interface IGenericBankDAO
 {

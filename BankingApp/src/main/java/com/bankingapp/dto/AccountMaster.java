@@ -1,13 +1,22 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import org.hibernate.annotations.Proxy;
+import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Proxy(lazy=false)
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountMaster implements Serializable
 {
 	/**
@@ -21,41 +30,4 @@ public class AccountMaster implements Serializable
 	private LocalDate openDate;
 	private Integer reqId;
 	private String chequeStatus;
-	public Integer getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(Integer accountId) {
-		this.accountId = accountId;
-	}
-	public String getAccountType() {
-		return accountType;
-	}
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
-	public Long getAccountBal() {
-		return accountBal;
-	}
-	public void setAccountBal(Long accountBal) {
-		this.accountBal = accountBal;
-	}
-	public LocalDate getOpenDate() {
-		return openDate;
-	}
-	public void setOpenDate(LocalDate openDate) {
-		this.openDate = openDate;
-	}
-	public Integer getReqId() {
-		return reqId;
-	}
-	public void setReqId(Integer reqId) {
-		this.reqId = reqId;
-	}
-	public String getChequeStatus() {
-		return chequeStatus;
-	}
-	public void setChequeStatus(String chequeStatus) {
-		this.chequeStatus = chequeStatus;
-	}
-	
 }

@@ -1,17 +1,16 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.IUserDAO;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.ServiceTracker;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.IUserDAO;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service("userService")
 @Transactional
 public class UserService  implements IUserService{

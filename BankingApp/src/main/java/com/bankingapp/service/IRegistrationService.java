@@ -1,16 +1,16 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
+
+import com.BankingApp.dto.AccountMaster;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.CustomerRequests;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
 
 import java.util.List;
-
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
 
 public interface IRegistrationService {
 	public boolean registerUser(CustomerRequests cr) throws BankingException;
 	public List<CustomerRequests>getCustReqList() throws BankingException;
-	public boolean insertCustomer(AccountMaster acc,User user,Customer cust,CustomerRequests custReq) throws BankingException;
+	public boolean insertCustomer(AccountMaster acc, User user, Customer cust, CustomerRequests custReq) throws BankingException;
 	public CustomerRequests getCustReq(Integer customerReqId) throws BankingException;
 }

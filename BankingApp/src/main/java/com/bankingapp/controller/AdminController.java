@@ -1,9 +1,11 @@
-package com.bankingapp.controller;
+package com.BankingApp.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
+import com.BankingApp.service.AdminService;
+import com.BankingApp.service.IAdminService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -11,22 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.bankingapp.dto.BankAdmin;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
-import com.bankingapp.service.AdminService;
-import com.bankingapp.service.IAdminService;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller("/BankAdmin")
 public class AdminController extends BankController{
 	@Autowired
 	IAdminService adminService=new AdminService();
-	private static Logger logger=Logger.getLogger(AdminController.class);
+	private static Logger logger= LogManager.getLogger(AdminController.class);
 	@RequestMapping(value="/adminLogin",method=RequestMethod.POST)
-	public ModelAndView loginAdmin(HttpServletRequest req,@ModelAttribute("bankAdmin")BankAdmin ba)
+	public ModelAndView loginAdmin(HttpServletRequest req,@ModelAttribute("bankAdmin") BankAdmin ba)
 	{
 		request=req;
 		session=req.getSession();

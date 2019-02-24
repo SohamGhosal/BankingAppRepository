@@ -1,4 +1,4 @@
-package com.bankingapp.exception;
+package com.BankingApp.exception;
 
 import javax.persistence.PersistenceException;
 
