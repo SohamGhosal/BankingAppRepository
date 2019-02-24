@@ -4,7 +4,7 @@
 
 Technologies Used:
 
-Spring Boot 2.0(Spring 5 MVC);
+Spring Boot 2.13(Spring 5 MVC);
 PostgreSQL DB;
 Java 11;
 JPA(Hibernate 5);
