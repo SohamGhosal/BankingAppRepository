@@ -1,6 +1,15 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class FundTransfer implements Serializable
 {
 	/**
@@ -12,36 +21,4 @@ public class FundTransfer implements Serializable
 	private Integer payeeAccId;
 	private LocalDate transDate;
 	private Long transAmt;
-	
-	public Integer getFundTransId() {
-		return fundTransId;
-	}
-	public void setFundTransId(Integer fundTransId) {
-		this.fundTransId = fundTransId;
-	}
-	public Integer getAccId() {
-		return accId;
-	}
-	public void setAccId(Integer accId) {
-		this.accId = accId;
-	}
-	public Integer getPayeeAccId() {
-		return payeeAccId;
-	}
-	public void setPayeeAccId(Integer payeeAccId) {
-		this.payeeAccId = payeeAccId;
-	}
-	public LocalDate getTransDate() {
-		return transDate;
-	}
-	public void setTransDate(LocalDate transDate) {
-		this.transDate = transDate;
-	}
-	public Long getTransAmt() {
-		return transAmt;
-	}
-	public void setTransAmt(Long transAmt) {
-		this.transAmt = transAmt;
-	}
-	
 }

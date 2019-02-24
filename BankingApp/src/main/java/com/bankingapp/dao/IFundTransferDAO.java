@@ -1,7 +1,7 @@
-package com.bankingapp.dao;
+package com.BankingApp.dao;
 
-import com.bankingapp.dto.PayeeTable;
-import com.bankingapp.exception.BankingException;
+import com.BankingApp.dto.PayeeTable;
+import com.BankingApp.exception.BankingException;
 
 public interface IFundTransferDAO {
 	public boolean checkAccId(int accid) throws BankingException;

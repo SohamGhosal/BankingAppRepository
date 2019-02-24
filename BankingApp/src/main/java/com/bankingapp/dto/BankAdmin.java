@@ -1,13 +1,22 @@
-package com.bankingapp.dto;
+package com.BankingApp.dto;
 
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import org.hibernate.annotations.Proxy;
+import java.io.Serializable;
 
 @Entity
 @Proxy(lazy=false)
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class BankAdmin implements Serializable{
 	
 	/**
@@ -18,17 +27,4 @@ public class BankAdmin implements Serializable{
 	private String adminId;
 	@NotBlank
 	private String adminPassword;
-	public String getAdminId() {
-		return adminId;
-	}
-	public void setAdminId(String adminId) {
-		this.adminId = adminId;
-	}
-	public String getAdminPassword() {
-		return adminPassword;
-	}
-	public void setAdminPassword(String adminPassword) {
-		this.adminPassword = adminPassword;
-	}
-	
 }

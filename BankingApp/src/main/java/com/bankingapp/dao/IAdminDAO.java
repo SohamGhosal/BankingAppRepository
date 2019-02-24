@@ -1,12 +1,12 @@
-package com.bankingapp.dao;
+package com.BankingApp.dao;
+
+import com.BankingApp.dto.BankAdmin;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.ServiceTracker;
+import com.BankingApp.dto.Transactions;
+import com.BankingApp.exception.BankingException;
 
 import java.util.List;
-
-import com.bankingapp.dto.BankAdmin;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.exception.BankingException;
 
 public interface IAdminDAO {
 	public BankAdmin validateAdmin(BankAdmin ba) throws BankingException;

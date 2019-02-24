@@ -1,23 +1,25 @@
-package com.bankingapp.dao;
+package com.BankingApp.dao;
 
-import java.time.LocalDate;
+import com.BankingApp.dto.AccountMaster;
+import com.BankingApp.dto.PayeeTable;
+import com.BankingApp.dto.TransactionId;
+import com.BankingApp.dto.Transactions;
+import com.BankingApp.exception.BankingException;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Repository;
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.PayeeTable;
-import com.bankingapp.dto.TransactionId;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.exception.BankingException;
+import java.time.LocalDate;
 
 @Repository("fundTransferDao")
 @Transactional
 public class FundTransferDAO implements IFundTransferDAO {
-	private static Logger logger=Logger.getLogger(FundTransferDAO.class);
+	private static Logger logger= LogManager.getLogger(FundTransferDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
@@ -51,7 +53,7 @@ public class FundTransferDAO implements IFundTransferDAO {
 			tr1.setTransDesc("Debit from Account No "+pt.getPayeeAccId());
 			TransactionId t1=new TransactionId();
 			t1.setTransId(tid);
-			t1.settransType("d");
+			t1.setTransType("d");
 			tr1.setTransactionId(t1);
 			em.persist(tr1);
 			em.flush();
@@ -67,7 +69,7 @@ public class FundTransferDAO implements IFundTransferDAO {
 			tr2.setTransDesc("Credit to Account No "+pt.getAccId());
 			TransactionId t2=new TransactionId();
 			t2.setTransId(tid);
-			t2.settransType("c");
+			t2.setTransType("c");
 			tr2.setTransactionId(t2);
 			em.persist(tr2);
 			em.flush();

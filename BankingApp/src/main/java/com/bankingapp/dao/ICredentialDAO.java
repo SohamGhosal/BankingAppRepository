@@ -1,8 +1,8 @@
-package com.bankingapp.dao;
+package com.BankingApp.dao;
 
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
+import com.BankingApp.dto.CustomerRequests;
+import com.BankingApp.dto.User;
+import com.BankingApp.exception.BankingException;
 
 public interface ICredentialDAO {
 	public String generateNewPassword(User user) throws BankingException;

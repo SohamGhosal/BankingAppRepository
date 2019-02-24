@@ -1,11 +1,11 @@
-package com.bankingapp.controller;
+package com.BankingApp.controller;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import org.apache.log4j.Logger;
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
+import com.BankingApp.service.IUserService;
+import com.BankingApp.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,22 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.BankAdmin;
-import com.bankingapp.dto.Customer;
-import com.bankingapp.dto.CustomerRequests;
-import com.bankingapp.dto.PayeeTable;
-import com.bankingapp.dto.SecurityQuest;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
-import com.bankingapp.service.IUserService;
-import com.bankingapp.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller("/LoginUser")
 public class UserController extends BankController{
-	private static Logger logger=Logger.getLogger(UserController.class);
+	private static Logger logger= LogManager.getLogger(UserController.class);
 	@Autowired
 	IUserService userService=new UserService();
 	@RequestMapping(value="/loginpage",method=RequestMethod.GET)

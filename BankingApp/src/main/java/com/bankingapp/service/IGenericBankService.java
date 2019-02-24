@@ -1,13 +1,9 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
+
+import com.BankingApp.dto.*;
+import com.BankingApp.exception.BankingException;
 
 import java.util.List;
-
-import com.bankingapp.dto.AccountMaster;
-import com.bankingapp.dto.SecurityQuest;
-import com.bankingapp.dto.ServiceTracker;
-import com.bankingapp.dto.Transactions;
-import com.bankingapp.dto.User;
-import com.bankingapp.exception.BankingException;
 
 public interface IGenericBankService {
 	public User getUserDetails(User user) throws BankingException;

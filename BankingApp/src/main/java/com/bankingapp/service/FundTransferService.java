@@ -1,13 +1,13 @@
-package com.bankingapp.service;
+package com.BankingApp.service;
 
-import javax.transaction.Transactional;
-
+import com.BankingApp.dao.IFundTransferDAO;
+import com.BankingApp.dto.PayeeTable;
+import com.BankingApp.exception.BankingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bankingapp.dao.IFundTransferDAO;
-import com.bankingapp.dto.PayeeTable;
-import com.bankingapp.exception.BankingException;
+import javax.transaction.Transactional;
+
 @Service("fundTransferService")
 @Transactional
 public class FundTransferService implements IFundTransferService {
