@@ -1,10 +1,10 @@
-# BankingApp REST API
+## BankingApp REST API
 
 
 
 # Technologies Used:
 
-Spring Boot 2.2.6(Spring 5 MVC);
+Spring Boot 2.2.6;
 PostgreSQL DB;
 Java 14;
 JPA(Hibernate 5);
