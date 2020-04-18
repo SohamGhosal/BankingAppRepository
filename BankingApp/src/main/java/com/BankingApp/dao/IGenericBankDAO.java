@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IGenericBankDAO
 {
-	public User getUserDetails(User user) throws BankingException;
+	public BankUser getUserDetails(BankUser user) throws BankingException;
 	public AccountMaster getAccountDetails(int accid) throws BankingException;
 	public List<Transactions> getStatements(int accid) throws BankingException;
 	public List<SecurityQuest>getQuestionList() throws BankingException;
-	public ServiceTracker showServiceByID(ServiceTracker st) throws BankingException;
+	public ServiceTracker showServiceByID(Integer serviceId) throws BankingException;
 }

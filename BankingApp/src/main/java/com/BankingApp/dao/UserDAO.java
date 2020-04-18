@@ -1,8 +1,8 @@
 package com.BankingApp.dao;
 
+import com.BankingApp.dto.BankUser;
 import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.ServiceTracker;
-import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class UserDAO implements IUserDAO {
 	@PersistenceContext
 	EntityManager em;
 	@Override
-	public Customer getCustomerDetails(User user) throws BankingException
+	public Customer getCustomerDetails(BankUser user) throws BankingException
 	{
 		TypedQuery<Customer> query=em.createQuery(QueryMapper.getCustomer,Customer.class);
 		query.setParameter("accountId", user.getAccId());
@@ -37,19 +37,18 @@ public class UserDAO implements IUserDAO {
 		return cs;
 	}
 	@Override
-	public User changePassword(User us,int uid) throws BankingException
+	public BankUser changePassword(BankUser us) throws BankingException
 	{
 		try
 		{
-			User user=new User();
-			TypedQuery<User> query=em.createQuery(QueryMapper.checkUser,User.class);
+			TypedQuery<BankUser> query=em.createQuery(QueryMapper.checkUser,BankUser.class);
 			query.setParameter("pwd",us.getPassword());
-			query.setParameter("uid",uid);
-			user=query.getSingleResult();
+			query.setParameter("uid",us.getUserId());
+			BankUser user=query.getSingleResult();
 			user.setPassword(us.getTransPassword());
 			em.merge(user);
 			em.flush();
-			em.getReference(User.class, uid);
+			em.getReference(BankUser.class, us.getUserId());
 			log.info("Password has been changed successfully");
 			return user;
 		}
@@ -71,12 +70,13 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public void addCheckRequest(ServiceTracker st) throws BankingException
+	public ServiceTracker addCheckRequest(ServiceTracker serviceTracker) throws BankingException
 	{
 		try
 		{
-			em.persist(st);
+			em.persist(serviceTracker);
 			em.flush();
+			return em.find(ServiceTracker.class,serviceTracker.getAccId());
 		} catch(PersistenceException e) {
 			throw new BankingException("Request Failed");
 		}
@@ -100,7 +100,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public void checkPendingRequest(int accid) throws BankingException{
+	public boolean checkPendingRequest(int accid) throws BankingException{
 		TypedQuery<ServiceTracker> query=em.createQuery(QueryMapper.findRequest,ServiceTracker.class);
 		query.setParameter("accountid", accid);
 		String servdesc="Request For CheckBook";
@@ -109,8 +109,9 @@ public class UserDAO implements IUserDAO {
 		query.setParameter("status",status);
 		try {
 			ServiceTracker st =query.getSingleResult();
+			return true;
 		} catch(PersistenceException e) {
-			throw new BankingException("No open Request Found");
+			return false;
 		}
 
 	}

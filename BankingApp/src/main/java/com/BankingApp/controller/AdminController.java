@@ -1,143 +1,65 @@
 package com.BankingApp.controller;
 
-import com.BankingApp.dto.*;
-import com.BankingApp.exception.BankingException;
-import com.BankingApp.service.AdminService;
+import com.BankingApp.dto.BankAdmin;
+import com.BankingApp.dto.Customer;
+import com.BankingApp.dto.ServiceTracker;
+import com.BankingApp.dto.Transactions;
+import com.BankingApp.service.GenericBankService;
 import com.BankingApp.service.IAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
-@Controller("/BankAdmin")
+@RestController("/BankAdmin")
 @Slf4j
-public class AdminController extends BankController{
-	@Autowired
-	IAdminService adminService=new AdminService();
-	@RequestMapping(value="/adminLogin",method=RequestMethod.POST)
-	public ModelAndView loginAdmin(HttpServletRequest req,@ModelAttribute("bankAdmin") BankAdmin ba)
-	{
-		request=req;
-		session=req.getSession();
-		try {
-			BankAdmin baD = adminService.validateAdmin(ba);
-			session.setAttribute("ba",baD);
-		//	logger.info("Login Successful");
-			return new ModelAndView("AdminHome");
-		} catch (BankingException e) {
-			return new ModelAndView("index","msg","Invalid Info");
-		}
-	}
+public class AdminController {
+    @Autowired
+    IAdminService adminService;
+    @Autowired
+    GenericBankService genericBankService;
 
-	@RequestMapping(value="/CnfUsrReq",method=RequestMethod.GET)
-	public ModelAndView cnfUserReq(HttpServletRequest req)
-	{
-		List<ServiceTracker> UserReq;
-		try {
-			UserReq = adminService.getUserReq();
-			return new ModelAndView("UserReq","UserReq",UserReq);
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","Error Occured");
-		}
+    @PostMapping(value = "/adminLogin")
+    public boolean loginAdmin(@RequestBody BankAdmin bankAdmin) {
+        BankAdmin bankAdminRepo = adminService.validateAdmin(bankAdmin);
+        return BCrypt.checkpw(bankAdmin.getAdminPassword(), bankAdminRepo.getAdminPassword());
+    }
 
-	}
-	
-	@RequestMapping(value="/ConfirmReq",method=RequestMethod.POST)
-	public ModelAndView cnfReq(HttpServletRequest req,@RequestParam("serviceId")Integer serviceId)
-	{
-		try {
-			boolean res=adminService.confirmServiceByServiceID(serviceId);
-			if(res==true)
-			{
-				List<ServiceTracker> UserReq=adminService.getUserReq();
-				return new ModelAndView("UserReq","msg","Confirmed");
-			}
-			else
-				return new ModelAndView("UserReq","msg","Error");
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","Error");
-		}
-	}
-	@RequestMapping(value="RejectRequest",method=RequestMethod.GET)
-	public ModelAndView delReq(HttpServletRequest req)
-	{
-		try {
-			int serviceId=(int) session.getAttribute("serviceId");
-			boolean res=adminService.rejectServiceByServiceID(serviceId);
-			if(res==true)
-			{
-				List<ServiceTracker> UserReq=adminService.getUserReq();
-				return new ModelAndView("UserReq","msg","Rejected");
-			}
-			else
-				return new ModelAndView("UserReq","msg","Error");
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","Error");
-		}
-	}
-	@RequestMapping(value="/ViewAllCustomers",method=RequestMethod.GET)
-	public ModelAndView viewCust(HttpServletRequest req)
-	{
-		try {
-			List<Customer>custInfo=adminService.getCustInfo();
-			return new ModelAndView("CustInfo","custInfo",custInfo);
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","No Customer Found!");
-		}
+    @GetMapping(value = "/CnfUsrReq")
+    public List<ServiceTracker> cnfUserReq() {
+        return adminService.getUserReq();
+    }
 
-	}
-	@RequestMapping(value="/ViewCustomer",method=RequestMethod.POST)
-	public ModelAndView viewCust(HttpServletRequest req,@RequestParam("customerId")int customerId)
-	{
-		try {
-			Customer custInfo=adminService.getCust(customerId);
-			List<Customer>custInfos=new ArrayList<Customer>();
-			custInfos.add(custInfo);
-			return new ModelAndView("CustInfo","custInfo",custInfos);
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","No Customer Found!");
-		}
+    @PostMapping(value = "/ConfirmReq")
+    public boolean cnfReq(@RequestParam Integer serviceId) {
+        return adminService.confirmServiceByServiceID(serviceId);
+    }
 
-	}
-	@RequestMapping(value="/getLog",method=RequestMethod.POST)
-	public ModelAndView getLog(HttpServletRequest req,@RequestParam("accountId")int accountId)
-	{
-		try {
-			List<Transactions>getLog=bankService.getStatements(accountId);
-			return new ModelAndView("AdminTransactionLogs","transaction",getLog);
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","No Transactions Found");
-		}
+    @DeleteMapping(value = "RejectRequest")
+    public boolean delReq(@RequestParam Integer serviceId) {
+        return adminService.rejectServiceByServiceID(serviceId);
+    }
 
-	}
-	@RequestMapping(value="/getAllLogs",method=RequestMethod.GET)
-	public ModelAndView getAllLogs(HttpServletRequest req)
-	{
-		try {
-			List<Transactions>getLog=adminService.getAllLogs();
-			session.setAttribute("tLog", "detailed");
-			return new ModelAndView("AdminTransactionLogs","transaction",getLog);
-		} catch (BankingException e) {
-			return new ModelAndView("AdminHome","msg","No Transactions Found");
-		}
-	}
-	@RequestMapping(value="/adminhome",method=RequestMethod.GET)
-	public ModelAndView adminHome(@ModelAttribute("accountRecover") User us)
-	{	
-		return new ModelAndView("AdminHome");
-	}
-	@RequestMapping(value="/adminLogout",method=RequestMethod.GET)
-	public ModelAndView logout()
-	{	
-		session.invalidate();
-		return new ModelAndView("index");
-	}
+    @GetMapping(value = "/ViewAllCustomers")
+    public List<Customer> viewCust() {
+        return adminService.getCustInfo();
+    }
+
+    @PostMapping(value = "/ViewCustomer")
+    public Customer viewCust(@RequestBody int customerId) {
+        return adminService.getCust(customerId);
+    }
+
+    @PostMapping(value = "/getLog")
+    public List<Transactions> getLog(@RequestParam("accountId") int accountId) {
+        return genericBankService.getStatements(accountId);
+    }
+
+    @GetMapping(value = "/getAllLogs")
+    public List<Transactions> getAllLogs() {
+        return adminService.getAllLogs();
+    }
+
 }

@@ -1,9 +1,9 @@
 package com.BankingApp.dao;
 
 import com.BankingApp.dto.AccountMaster;
+import com.BankingApp.dto.BankUser;
 import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.CustomerRequests;
-import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +59,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 		}
 	}
 	@Override
-	public boolean insertCustomer(AccountMaster acc,User user,Customer cust,CustomerRequests custReq) throws BankingException{
+	public boolean insertCustomer(AccountMaster acc, BankUser user, Customer cust, CustomerRequests custReq) throws BankingException{
 		try
 		{
 			em.persist(acc);
