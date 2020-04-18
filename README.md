@@ -10,6 +10,7 @@ Java 14;
 JPA(Hibernate 5);
 Junit 5;
 Lombok;
-Log4j 2;
+LogBack;
 Devtools;
-Actuator
+Actuator;
+Spring Security
