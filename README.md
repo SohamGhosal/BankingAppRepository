@@ -1,8 +1,8 @@
-## BankingApp REST API
+# BankingApp REST API
 
 
 
-# Technologies Used:
+## Technologies Used:
 
 Spring Boot 2.2.6;
 PostgreSQL DB;
