@@ -5,10 +5,8 @@ import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -18,8 +16,8 @@ import java.util.List;
 
 @Repository("userDao")
 @Transactional
+@Slf4j
 public class UserDAO implements IUserDAO {
-	private static Logger logger= LogManager.getLogger(UserDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
@@ -52,7 +50,7 @@ public class UserDAO implements IUserDAO {
 			em.merge(user);
 			em.flush();
 			em.getReference(User.class, uid);
-			logger.info("Password has been changed successfully");
+			log.info("Password has been changed successfully");
 			return user;
 		}
 		catch(PersistenceException e)

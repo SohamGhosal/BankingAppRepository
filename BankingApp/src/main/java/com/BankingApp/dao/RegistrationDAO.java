@@ -6,10 +6,8 @@ import com.BankingApp.dto.CustomerRequests;
 import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -19,8 +17,8 @@ import java.util.List;
 
 @Repository("registrationDAO")
 @Transactional
+@Slf4j
 public class RegistrationDAO implements IRegistrationDAO {
-	private static Logger logger= LogManager.getLogger(RegistrationDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
@@ -68,7 +66,7 @@ public class RegistrationDAO implements IRegistrationDAO {
 			em.persist(user);
 			em.persist(cust);
 			em.merge(custReq);
-			logger.info("Registration is Sucessful");
+			log.info("Registration is Sucessful");
 			return true;
 		}
 		catch(PersistenceException e) {

@@ -3,8 +3,7 @@ package com.BankingApp.dao;
 import com.BankingApp.dto.*;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -16,10 +15,9 @@ import java.util.List;
 
 @Repository("bankDao")
 @Transactional
+@Slf4j
 public class GenericBankDAO implements IGenericBankDAO
 {
-
-	private static final Logger logger= LogManager.getLogger(GenericBankDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	
@@ -44,7 +42,7 @@ public class GenericBankDAO implements IGenericBankDAO
 		try
 		{
 			user = query.getSingleResult();
-			logger.info("User is validated!");
+			log.info("User is validated!");
 		}
 		catch(PersistenceException e)
 		{

@@ -1,9 +1,6 @@
 package com.BankingApp.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
@@ -15,10 +12,7 @@ import java.time.LocalDate;
 
 @Entity
 @Proxy(lazy=false)
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class ServiceTracker implements Serializable
 {
 	/**

@@ -6,10 +6,8 @@ import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.Transactions;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -19,8 +17,8 @@ import java.util.List;
 
 @Repository("adminDao")
 @Transactional
+@Slf4j
 public class AdminDAO extends GenericBankDAO implements IAdminDAO{
-	private static Logger logger= LogManager.getLogger(AdminDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
@@ -31,7 +29,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try
 		{
 			ba=query.getSingleResult();
-			logger.info("Admin is Validated!");
+			log.info("Admin is Validated!");
 			return ba;
 		}
 		catch(PersistenceException e)
