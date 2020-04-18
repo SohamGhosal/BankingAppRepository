@@ -22,18 +22,18 @@ public class GenericBankDAO implements IGenericBankDAO
 	EntityManager em;
 	
 	@Override
-	public User getUserDetails(User user) throws BankingException
+	public BankUser getUserDetails(BankUser user) throws BankingException
 	{
-		TypedQuery<User> query;
+		TypedQuery<BankUser> query;
 		if(user.getPassword()==null)
 		{
-			query=em.createQuery(QueryMapper.validateUser,User.class);
+			query=em.createQuery(QueryMapper.validateUser,BankUser.class);
 			query.setParameter("uid",user.getUserId());
 			query.setParameter("lock", "N");
 		}
 		else
 		{
-			query=em.createQuery(QueryMapper.getUser,User.class);
+			query=em.createQuery(QueryMapper.getUser,BankUser.class);
 			query.setParameter("uid",user.getUserId());
 			query.setParameter("password", user.getPassword());
 			user.setLockStatus("N");
@@ -107,10 +107,10 @@ public class GenericBankDAO implements IGenericBankDAO
 	}
 
 	@Override
-	public ServiceTracker showServiceByID(ServiceTracker st) throws BankingException
+	public ServiceTracker showServiceByID(Integer serviceId) throws BankingException
 	{
 		try {
-			ServiceTracker sts = em.getReference(ServiceTracker.class, st.getServiceId());
+			ServiceTracker sts = em.getReference(ServiceTracker.class, serviceId);
 			return sts;
 		} catch(PersistenceException e) {
 			throw new BankingException("No records found");

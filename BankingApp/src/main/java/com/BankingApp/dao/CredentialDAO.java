@@ -1,11 +1,10 @@
 package com.BankingApp.dao;
 
+import com.BankingApp.dto.BankUser;
 import com.BankingApp.dto.CustomerRequests;
-import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,31 +19,29 @@ public class CredentialDAO implements ICredentialDAO{
 	@PersistenceContext
 	EntityManager em;
 	@Override
-	public String generateNewPassword(User user) throws BankingException {
-		String pass= RandomStringUtils.randomAlphanumeric(6,6)+"#";
+	public String generateNewPassword(BankUser user) throws BankingException {
 		try {
-			user.setPassword(pass);
 			em.merge(user);
 			em.flush();
 			log.info("Password is changed!");
 		} catch(PersistenceException e) {
 			throw new BankingException("Password Not changed!");
 		}
-		return pass;
+		return user.getPassword();
 	}
 	@Override
-	public void lockUser(User user) throws BankingException
+	public boolean lockUser(BankUser user) throws BankingException
 	{
 		try
 		{
-			user.setLockStatus("Y");
 			em.merge(user);
 			em.flush();
+			return true;
 		}
 
 		catch(PersistenceException e)
 		{
-			e.printStackTrace();
+			return false;
 		}
 	}
 	@Override

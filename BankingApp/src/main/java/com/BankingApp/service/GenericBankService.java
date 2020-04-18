@@ -16,7 +16,7 @@ public class GenericBankService implements IGenericBankService {
 	@Autowired
 	IGenericBankDAO bankDao;
 	@Override
-	public User getUserDetails(User user) throws BankingException
+	public BankUser getUserDetails(BankUser user) throws BankingException
 	{
 		return bankDao.getUserDetails(user);
 	}
@@ -36,9 +36,9 @@ public class GenericBankService implements IGenericBankService {
 	
 	
 	@Override
-	public ServiceTracker showServiceByID(ServiceTracker st) throws BankingException
+	public ServiceTracker showServiceByID(Integer serviceId) throws BankingException
 	{
-		return bankDao.showServiceByID(st);
+		return bankDao.showServiceByID(serviceId);
 	}
 	
 	

@@ -25,25 +25,13 @@ public class CustomerRequests implements Serializable
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private Integer custReqId;
 	private String custName;
-	@Email(message="Email is not valid")
-	@NotBlank
 	private String email;
-	@NotBlank
 	private String mobileNo;
-	@NotBlank
 	private String address;
-	@NotBlank
 	private String panNo;
-	@NotBlank
 	private String accountType;
-	@NotNull
-	private Long accountBal;
-	@NotBlank
 	private String status;
-	@NotBlank
 	private String secretQuest;
-	@NotBlank
 	private String answer;
-	@NotBlank
 	private String chequeStatus;
 }

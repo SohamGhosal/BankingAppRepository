@@ -68,7 +68,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try {
 			ServiceTracker st=new ServiceTracker();
 			st.setServiceId(serviceId);
-			ServiceTracker	sts =showServiceByID(st);
+			ServiceTracker	sts =showServiceByID(serviceId);
 			sts.setServiceStatus("Closed");
 			em.merge(sts);
 			res=true;
@@ -95,7 +95,7 @@ public class AdminDAO extends GenericBankDAO implements IAdminDAO{
 		try {
 			ServiceTracker st=new ServiceTracker();
 			st.setServiceId(serviceId);
-			ServiceTracker	sts =showServiceByID(st);
+			ServiceTracker	sts =showServiceByID(serviceId);
 			sts.setServiceStatus("Rejected");
 			em.merge(sts);
 			res=true;

@@ -14,7 +14,7 @@ import java.io.Serializable;
 @Table(name="users")
 @Proxy(lazy=false)
 @Data
-public class User implements Serializable
+public class BankUser implements Serializable
 {
 	/**
 	 * 
@@ -22,8 +22,6 @@ public class User implements Serializable
 	private static final long serialVersionUID = 3449124225226660570L;
 	private Integer accId;
 	@Id
-	@Min(value=100000,message="Invalid User ID")
-	@Max(value=999999,message="Invalid User ID")
 	private Integer userId;
 	private String password;
 	private String secretQues;
