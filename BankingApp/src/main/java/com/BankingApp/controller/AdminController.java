@@ -4,8 +4,7 @@ import com.BankingApp.dto.*;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.AdminService;
 import com.BankingApp.service.IAdminService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,10 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller("/BankAdmin")
+@Slf4j
 public class AdminController extends BankController{
 	@Autowired
 	IAdminService adminService=new AdminService();
-	private static Logger logger= LogManager.getLogger(AdminController.class);
 	@RequestMapping(value="/adminLogin",method=RequestMethod.POST)
 	public ModelAndView loginAdmin(HttpServletRequest req,@ModelAttribute("bankAdmin") BankAdmin ba)
 	{
@@ -31,7 +30,7 @@ public class AdminController extends BankController{
 		try {
 			BankAdmin baD = adminService.validateAdmin(ba);
 			session.setAttribute("ba",baD);
-			logger.info("Login Successful");
+		//	logger.info("Login Successful");
 			return new ModelAndView("AdminHome");
 		} catch (BankingException e) {
 			return new ModelAndView("index","msg","Invalid Info");

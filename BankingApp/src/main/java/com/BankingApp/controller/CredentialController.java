@@ -4,8 +4,7 @@ import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.CredentialService;
 import com.BankingApp.service.ICredentialService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller("/ControlCredential")
+@Slf4j
 public class CredentialController extends BankController{
-	private static Logger logger= LogManager.getLogger(CredentialController.class);
 	@Autowired
 	ICredentialService credentialService=new CredentialService();
 	@RequestMapping(value="/ForgotAccount",method=RequestMethod.POST)
@@ -63,7 +62,7 @@ public class CredentialController extends BankController{
 				String password;
 				try {
 					password = credentialService.generateNewPassword(user);
-					logger.info("New Password Generated!");
+					log.info("New Password Generated!");
 					session.invalidate();
 					return new ModelAndView("index","pwd",password);
 				} catch (BankingException e) {

@@ -4,9 +4,8 @@ import com.BankingApp.dto.*;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.IRegistrationService;
 import com.BankingApp.service.RegistrationService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,8 +19,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Controller("/Register")
+@Slf4j
 public class RegistrationController extends BankController{
-	private static Logger logger= LogManager.getLogger(RegistrationController.class);
 	@Autowired
 	IRegistrationService registrationService=new RegistrationService();
 	@RequestMapping(value="/registerUser",method=RequestMethod.POST)
@@ -98,7 +97,7 @@ public class RegistrationController extends BankController{
 			res = registrationService.insertCustomer(acc, us, cust,custReq);
 			if(res)
 			{
-				logger.info("Account Created Successfully");
+				log.info("Account Created Successfully");
 				return new ModelAndView("ViewCustReq","msg","Account Created Successfully");
 			}
 			else
@@ -106,7 +105,7 @@ public class RegistrationController extends BankController{
 				return new ModelAndView("ViewCustReq","msg","Error Occured");
 			}
 		} catch (BankingException e) {
-			logger.error("Registration Failed!"+e);
+			log.error("Registration Failed!"+e);
 			return new ModelAndView("ViewCustReq","msg","Error Occured");
 		}
 

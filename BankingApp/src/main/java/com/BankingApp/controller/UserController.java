@@ -4,8 +4,7 @@ import com.BankingApp.dto.*;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.IUserService;
 import com.BankingApp.service.UserService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 @Controller("/LoginUser")
+@Slf4j
 public class UserController extends BankController{
-	private static Logger logger= LogManager.getLogger(UserController.class);
 	@Autowired
 	IUserService userService=new UserService();
 	@RequestMapping(value="/loginpage",method=RequestMethod.GET)
@@ -34,7 +35,7 @@ cus,@ModelAttribute("customerRequest")CustomerRequests cr,@ModelAttribute("bankA
 		List<SecurityQuest> secretQuest;
 		try {
 			secretQuest = bankService.getQuestionList();
-			logger.info("Login Page is loaded successfully");
+			log.info("Login Page is loaded successfully");
 			return new ModelAndView("Login","secretQuest", secretQuest);
 		} catch (BankingException e) {
 			return new ModelAndView("Login","error","Question Not found");
@@ -90,7 +91,7 @@ if(us.getPassword().equals(sessionUser.getPassword())&&!(us.getTransPassword().e
 				session.removeAttribute("user");
 				session.setAttribute("user", sessionUser);
 				Msg="Password has been changed Successfully";
-				logger.info(Msg);
+				log.info(Msg);
 				return new ModelAndView("Welcome","msg",Msg);
 			}
 			catch (BankingException e)

@@ -7,8 +7,7 @@ import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.FundTransferService;
 import com.BankingApp.service.IFundTransferService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller("/FundTransfer")
+@Slf4j
 public class FundTransferController extends BankController{
-	private static Logger logger= LogManager.getLogger(FundTransferController.class);
 	@Autowired
 	IFundTransferService fundTransferService=new FundTransferService();
 	@RequestMapping(value="/FundTrans",method=RequestMethod.POST)
@@ -49,7 +48,7 @@ public class FundTransferController extends BankController{
 			if(fundTransferService.checkAccId(trans.getPayeeAccId())==false)
 			{
 				Msg="Wrong Payee info given";
-				logger.error(Msg);
+				log.error(Msg);
 				return new ModelAndView("Welcome","msg",Msg);
 			}
 			else if(fundTransferService.checkAccId(trans.getAccId())==true)
@@ -62,7 +61,7 @@ public class FundTransferController extends BankController{
 						{
 							fundTransferService.transferFund(trans);
 							Msg="Fund Transfer Done Successfully";
-							logger.info(Msg);
+							log.info(Msg);
 							AccountMaster acct=bankService.getAccountDetails(acc.getAccountId());
 							session.removeAttribute("acc");
 							session.setAttribute("acc", acct);
@@ -71,7 +70,7 @@ public class FundTransferController extends BankController{
 						catch (BankingException e)
 						{
 							Msg="Error Occured!";
-							logger.error(Msg);
+							log.error(Msg);
 							return new ModelAndView("Welcome","msg",Msg);
 						}
 
@@ -79,22 +78,22 @@ public class FundTransferController extends BankController{
 					else
 					{
 						Msg="Atleast amount of 100 has to be transferred";
-						logger.error(Msg);
+						log.error(Msg);
 						return new ModelAndView("Welcome","msg",Msg);
 					}
 				}
 				else
 				{
 					Msg="Not Enough Balance";
-					logger.error(Msg);
+					log.error(Msg);
 					return new ModelAndView("Welcome","msg",Msg);
 				}
 			}
 		} catch (BankingException e) {
-			logger.error(Msg);
+			log.error(Msg);
 			return new ModelAndView("Welcome","msg","Fund Transfer Failed");
 		}
-		logger.error(Msg);
+		log.error(Msg);
 		return new ModelAndView("Welcome","msg","Transfer Failed");
 	}
 

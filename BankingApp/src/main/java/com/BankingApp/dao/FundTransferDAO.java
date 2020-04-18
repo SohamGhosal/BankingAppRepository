@@ -5,11 +5,9 @@ import com.BankingApp.dto.PayeeTable;
 import com.BankingApp.dto.TransactionId;
 import com.BankingApp.dto.Transactions;
 import com.BankingApp.exception.BankingException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -18,8 +16,8 @@ import java.time.LocalDate;
 
 @Repository("fundTransferDao")
 @Transactional
+@Slf4j
 public class FundTransferDAO implements IFundTransferDAO {
-	private static Logger logger= LogManager.getLogger(FundTransferDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
@@ -73,7 +71,7 @@ public class FundTransferDAO implements IFundTransferDAO {
 			tr2.setTransactionId(t2);
 			em.persist(tr2);
 			em.flush();
-			logger.info("Transaction Successful!");
+			log.info("Transaction Successful!");
 		}
 		catch (BankingException e)
 		{

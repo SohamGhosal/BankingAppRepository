@@ -4,11 +4,9 @@ import com.BankingApp.dto.CustomerRequests;
 import com.BankingApp.dto.User;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.util.QueryMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -17,18 +15,18 @@ import javax.transaction.Transactional;
 
 @Repository("credentialDao")
 @Transactional
+@Slf4j
 public class CredentialDAO implements ICredentialDAO{
-	private static Logger logger= LogManager.getLogger(CredentialDAO.class);
 	@PersistenceContext
 	EntityManager em;
 	@Override
 	public String generateNewPassword(User user) throws BankingException {
-		String pass=RandomStringUtils.randomAlphanumeric(6,6)+"#";
+		String pass= RandomStringUtils.randomAlphanumeric(6,6)+"#";
 		try {
 			user.setPassword(pass);
 			em.merge(user);
 			em.flush();
-			logger.info("Password is changed!");
+			log.info("Password is changed!");
 		} catch(PersistenceException e) {
 			throw new BankingException("Password Not changed!");
 		}
