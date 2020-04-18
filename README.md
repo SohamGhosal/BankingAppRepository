@@ -1,4 +1,4 @@
-# BankingApp REST AP
+# BankingApp REST API
 
 
 
