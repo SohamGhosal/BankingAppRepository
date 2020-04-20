@@ -9,7 +9,7 @@ import com.BankingApp.exception.BankingException;
 import java.util.List;
 
 public interface IAdminService {
-	public BankAdmin validateAdmin(BankAdmin ba) throws BankingException;
+	public boolean validateAdmin(BankAdmin ba) throws BankingException;
 	public Customer getCust(int customerId) throws BankingException;
 	public List<Transactions> getAllLogs() throws BankingException;
 	public boolean confirmServiceByServiceID(int serviceId) throws BankingException;
