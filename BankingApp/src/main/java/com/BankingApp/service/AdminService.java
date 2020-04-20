@@ -6,7 +6,9 @@ import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.Transactions;
 import com.BankingApp.exception.BankingException;
+import com.BankingApp.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,9 +19,11 @@ import java.util.List;
 public class AdminService implements IAdminService {
 	@Autowired
 	IAdminDAO adminDao;
+	@Autowired
+	AdminRepository adminRepository;
 	@Override
-	public BankAdmin validateAdmin(BankAdmin ba) throws BankingException{
-		return adminDao.validateAdmin(ba);
+	public boolean validateAdmin(BankAdmin bankAdmin) throws BankingException{
+		return BCrypt.checkpw(bankAdmin.getAdminPassword(), adminRepository.findById(bankAdmin.getAdminId()).get().getAdminPassword());
 	}
 	@Override
 	public Customer getCust(int customerId) throws BankingException {

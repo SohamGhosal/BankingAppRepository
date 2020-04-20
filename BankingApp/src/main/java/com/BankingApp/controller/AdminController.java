@@ -8,7 +8,8 @@ import com.BankingApp.service.GenericBankService;
 import com.BankingApp.service.IAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,11 @@ public class AdminController {
     GenericBankService genericBankService;
 
     @PostMapping(value = "/adminLogin")
-    public boolean loginAdmin(@RequestBody BankAdmin bankAdmin) {
-        BankAdmin bankAdminRepo = adminService.validateAdmin(bankAdmin);
-        return BCrypt.checkpw(bankAdmin.getAdminPassword(), bankAdminRepo.getAdminPassword());
+    public ResponseEntity<String> loginAdmin(@RequestBody BankAdmin bankAdmin) {
+        if(adminService.validateAdmin(bankAdmin))
+            return ResponseEntity.ok().body("Admin Logged in Succesfully");
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin Log in Falied");
     }
 
     @GetMapping(value = "/CnfUsrReq")
@@ -61,5 +64,4 @@ public class AdminController {
     public List<Transactions> getAllLogs() {
         return adminService.getAllLogs();
     }
-
 }
