@@ -1,15 +1,20 @@
 package com.BankingApp.controller;
 
 import com.BankingApp.dto.BankUser;
+import com.BankingApp.dto.CustomerRequests;
 import com.BankingApp.service.ICredentialService;
 import com.BankingApp.service.IGenericBankService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/ControlCredential")
+@RestController
+@RequestMapping(value="/controlcredential")
 @Slf4j
 public class CredentialController{
 	@Autowired
@@ -17,20 +22,27 @@ public class CredentialController{
 	@Autowired
 	IGenericBankService genericBankService;
 
-	@PostMapping(value="/ForgotAccount")
-	public BankUser recoverAccount(@RequestBody BankUser bankUser)
+	@PostMapping(value="/forgotaccount")
+	public ResponseEntity<String> recoverAccount(@RequestBody BankUser bankUser)
 	{
-		return genericBankService.getUserDetails(bankUser);
-
+		if(genericBankService.verifyUser(bankUser))
+			return ResponseEntity.ok().body("Verified Successfully");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Verification Failed");
 	}
-	@PostMapping(value ="/generatePassword")
-	public String generatePassword(@RequestBody BankUser bankUser) {
-		return credentialService.generateNewPassword(bankUser);
+	@PostMapping(value="/lockuser")
+	public ResponseEntity<String> lockUser(@RequestBody BankUser bankUser) {
+		try {
+			credentialService.lockUser(bankUser);
+			return ResponseEntity.ok().body("User Locked");
+		}
+		catch (Exception e)
+		{
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Locking Failed");
+		}
 	}
-
-	@PostMapping(value="/lockUser")
-	public boolean lockUser(@RequestBody BankUser bankUser) {
-		return credentialService.lockUser(bankUser);
+	@PostMapping(value="/verifycustomer")
+	public CustomerRequests verifyCustomer(@RequestBody CustomerRequests customerRequests)
+	{
+		return credentialService.verifyCustomer(customerRequests);
 	}
-
 }

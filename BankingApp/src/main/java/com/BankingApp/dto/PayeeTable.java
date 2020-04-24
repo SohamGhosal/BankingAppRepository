@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 public class PayeeTable
 {
-	private Integer accId;
-	private Integer payeeAccId;
+	private String accId;
+	private String payeeAccId;
 	private Long amount;
 }

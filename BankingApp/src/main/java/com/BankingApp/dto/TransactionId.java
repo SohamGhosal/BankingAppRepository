@@ -14,7 +14,7 @@ public class TransactionId implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 5117755968510462488L;
-	private Integer transId;
+	private String transId;
 	private String transType;
 	@Override
 	public boolean equals(Object obj) {

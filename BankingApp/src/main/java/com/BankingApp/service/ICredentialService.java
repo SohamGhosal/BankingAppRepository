@@ -5,7 +5,6 @@ import com.BankingApp.dto.CustomerRequests;
 import com.BankingApp.exception.BankingException;
 
 public interface ICredentialService {
-	public String generateNewPassword(BankUser user) throws BankingException;
-	public boolean lockUser(BankUser user) throws BankingException;
-	public CustomerRequests verifyCutomer(CustomerRequests cr) throws BankingException;
+	public void lockUser(BankUser user) throws BankingException;
+	public CustomerRequests verifyCustomer(CustomerRequests cr) throws BankingException;
 }

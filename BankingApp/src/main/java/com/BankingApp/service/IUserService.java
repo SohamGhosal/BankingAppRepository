@@ -10,8 +10,8 @@ import java.util.List;
 public interface IUserService {
 	public Customer getCustomerDetails(BankUser user) throws BankingException;
 	public BankUser changePassword(BankUser us) throws BankingException;
-	public Customer updateDetails(Customer cus) throws BankingException;
-	public ServiceTracker addCheckRequest(Integer accountId) throws BankingException;
-	public List<ServiceTracker> showServiceByAccID(int accid) throws BankingException;
-	public boolean checkPendingRequest(int accid) throws BankingException;
+	public void updateDetails(Customer cus) throws BankingException;
+	public void addCheckRequest(String accountId) throws BankingException;
+	public List<ServiceTracker> showServiceByAccID(String accid) throws BankingException;
+	public boolean checkPendingRequest(String accid) throws BankingException;
 }

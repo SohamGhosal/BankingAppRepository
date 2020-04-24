@@ -20,9 +20,9 @@ public class BankUser implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 3449124225226660570L;
-	private Integer accId;
+	private String accId;
 	@Id
-	private Integer userId;
+	private String userId;
 	private String password;
 	private String secretQues;
 	private String answer;

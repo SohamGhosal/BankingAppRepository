@@ -1,6 +1,7 @@
 package com.BankingApp.dto;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
@@ -22,8 +23,9 @@ public class CustomerRequests implements Serializable
 	 */
 	private static final long serialVersionUID = 5159401544235909396L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Integer custReqId;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String custReqId;
 	private String custName;
 	private String email;
 	private String mobileNo;

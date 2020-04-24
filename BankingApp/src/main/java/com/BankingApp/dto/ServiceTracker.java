@@ -1,6 +1,7 @@
 package com.BankingApp.dto;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.Entity;
@@ -20,10 +21,11 @@ public class ServiceTracker implements Serializable
 	 */
 	private static final long serialVersionUID = -8397036782220677743L;
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
-	private Integer serviceId;
+	@GeneratedValue(generator = "uuid")
+	@GenericGenerator(name = "uuid", strategy = "uuid2")
+	private String serviceId;
 	private String serviceDesc;
-	private Integer accId;
+	private String accountId;
 	private LocalDate serviceRaiseDate;
 	private String serviceStatus;
 }
