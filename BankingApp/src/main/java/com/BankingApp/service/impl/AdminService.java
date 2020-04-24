@@ -1,57 +1,57 @@
-package com.BankingApp.service;
+package com.BankingApp.service.impl;
 
-import com.BankingApp.dao.IAdminDAO;
 import com.BankingApp.dto.BankAdmin;
 import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.Transactions;
 import com.BankingApp.exception.BankingException;
 import com.BankingApp.repository.AdminRepository;
+import com.BankingApp.repository.CustomerRepository;
+import com.BankingApp.repository.ServiceTrackerRepository;
+import com.BankingApp.repository.TransactionsRepository;
+import com.BankingApp.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service("adminService")
-@Transactional
 public class AdminService implements IAdminService {
 	@Autowired
-	IAdminDAO adminDao;
+	private AdminRepository adminRepository;
 	@Autowired
-	AdminRepository adminRepository;
+	private CustomerRepository customerRepository;
+	@Autowired
+	private TransactionsRepository transactionsRepository;
+	@Autowired
+	private ServiceTrackerRepository serviceTrackerRepository;
 	@Override
 	public boolean validateAdmin(BankAdmin bankAdmin) throws BankingException{
+		System.out.println(BCrypt.hashpw("test",BCrypt.gensalt()));
 		return BCrypt.checkpw(bankAdmin.getAdminPassword(), adminRepository.findById(bankAdmin.getAdminId()).get().getAdminPassword());
 	}
 	@Override
-	public Customer getCust(int customerId) throws BankingException {
-		
-		return adminDao.getCust(customerId);
+	public Customer getCust(String customerId) throws BankingException {
+		return customerRepository.findById(customerId).get();
 	}
 	@Override
 	public List<Transactions> getAllLogs() throws BankingException {
 		
-		return adminDao.getAllLogs();
-	}
-	@Override
-	public boolean confirmServiceByServiceID(int serviceId) throws BankingException {
-		
-		return adminDao.confirmServiceByServiceID(serviceId);
+		return transactionsRepository.findAll();
 	}
 	@Override
 	public List<Customer> getCustInfo() throws BankingException {
 		
-		return adminDao.getCustInfo();
+		return customerRepository.findAll();
 	}
 	@Override
-	public boolean rejectServiceByServiceID(int serviceId) throws BankingException {
-		return adminDao.rejectServiceByServiceID(serviceId);
+	public void rejectServiceByServiceID(String serviceId) throws BankingException {
+		serviceTrackerRepository.delete(serviceTrackerRepository.findById(serviceId).get());
 	}
 	@Override
 	public List<ServiceTracker> getUserReq() throws BankingException {
 		
-		return adminDao.getUserReq();
+		return serviceTrackerRepository.findAll();
 	}
 }

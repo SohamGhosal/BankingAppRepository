@@ -23,5 +23,5 @@ public class Transactions implements Serializable
 	private String transDesc;
 	private LocalDate transDate;
 	private Long transAmt;
-	private Integer accountNo;
+	private String accountNo;
 }

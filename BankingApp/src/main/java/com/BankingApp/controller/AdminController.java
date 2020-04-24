@@ -4,7 +4,7 @@ import com.BankingApp.dto.BankAdmin;
 import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.Transactions;
-import com.BankingApp.service.GenericBankService;
+import com.BankingApp.service.impl.GenericBankService;
 import com.BankingApp.service.IAdminService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/BankAdmin")
+@RestController
+@RequestMapping("/bankadmin")
 @Slf4j
 public class AdminController {
     @Autowired
@@ -22,45 +23,46 @@ public class AdminController {
     @Autowired
     GenericBankService genericBankService;
 
-    @PostMapping(value = "/adminLogin")
+    @PostMapping(value = "/adminlogin")
     public ResponseEntity<String> loginAdmin(@RequestBody BankAdmin bankAdmin) {
         if(adminService.validateAdmin(bankAdmin))
-            return ResponseEntity.ok().body("Admin Logged in Succesfully");
-        else
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin Log in Falied");
+            return ResponseEntity.ok().body("Admin Logged in Successfully");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Admin Log in Failed");
     }
 
-    @GetMapping(value = "/CnfUsrReq")
+    @GetMapping(value = "/cnfusrreq")
     public List<ServiceTracker> cnfUserReq() {
         return adminService.getUserReq();
     }
 
-    @PostMapping(value = "/ConfirmReq")
-    public boolean cnfReq(@RequestParam Integer serviceId) {
-        return adminService.confirmServiceByServiceID(serviceId);
+
+    @DeleteMapping(value = "/rejectrequest")
+    public ResponseEntity<String> delReq(@RequestBody String serviceId) {
+        try {
+            adminService.rejectServiceByServiceID(serviceId);
+            return ResponseEntity.ok().body("Request Deleted");
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Deletion Failed!");
+        }
     }
 
-    @DeleteMapping(value = "RejectRequest")
-    public boolean delReq(@RequestParam Integer serviceId) {
-        return adminService.rejectServiceByServiceID(serviceId);
-    }
-
-    @GetMapping(value = "/ViewAllCustomers")
+    @GetMapping(value = "/viewallcustomers")
     public List<Customer> viewCust() {
         return adminService.getCustInfo();
     }
 
-    @PostMapping(value = "/ViewCustomer")
-    public Customer viewCust(@RequestBody int customerId) {
+    @PostMapping(value = "/viewcustomer")
+    public Customer viewCust(@RequestBody String customerId) {
         return adminService.getCust(customerId);
     }
 
-    @PostMapping(value = "/getLog")
-    public List<Transactions> getLog(@RequestParam("accountId") int accountId) {
+    @PostMapping(value = "/getlog")
+    public List<Transactions> getLog(@RequestParam("accountId") String accountId) {
         return genericBankService.getStatements(accountId);
     }
 
-    @GetMapping(value = "/getAllLogs")
+    @GetMapping(value = "/getalllogs")
     public List<Transactions> getAllLogs() {
         return adminService.getAllLogs();
     }
