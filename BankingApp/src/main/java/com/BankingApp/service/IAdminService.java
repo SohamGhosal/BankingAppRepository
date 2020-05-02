@@ -15,4 +15,5 @@ public interface IAdminService {
 	public List<Customer> getCustInfo() throws BankingException;
 	public void rejectServiceByServiceID(String serviceId) throws BankingException;
 	public List<ServiceTracker>getUserReq() throws BankingException;
+	public void registerAdmin(BankAdmin bankAdmin)throws BankingException;
 }

@@ -54,4 +54,10 @@ public class AdminService implements IAdminService {
 		
 		return serviceTrackerRepository.findAll();
 	}
+
+	@Override
+	public void registerAdmin(BankAdmin bankAdmin) throws BankingException {
+		bankAdmin.setAdminPassword(BCrypt.hashpw(bankAdmin.getAdminPassword(),BCrypt.gensalt()));
+		adminRepository.saveAndFlush(bankAdmin);
+	}
 }
