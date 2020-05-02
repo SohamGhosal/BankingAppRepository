@@ -4,6 +4,7 @@ import com.BankingApp.dto.BankAdmin;
 import com.BankingApp.dto.Customer;
 import com.BankingApp.dto.ServiceTracker;
 import com.BankingApp.dto.Transactions;
+import com.BankingApp.exception.BankingException;
 import com.BankingApp.service.impl.GenericBankService;
 import com.BankingApp.service.IAdminService;
 import lombok.extern.slf4j.Slf4j;
@@ -65,5 +66,19 @@ public class AdminController {
     @GetMapping(value = "/getalllogs")
     public List<Transactions> getAllLogs() {
         return adminService.getAllLogs();
+    }
+
+    @PostMapping(value="/registerAdmin")
+    public ResponseEntity<String>regsierAdmin(@RequestBody BankAdmin bankAdmin)
+    {
+        try
+        {
+            adminService.registerAdmin(bankAdmin);
+            return ResponseEntity.ok().body("Admin Registered");
+        }
+        catch (BankingException e)
+        {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Admin Not Registered");
+        }
     }
 }

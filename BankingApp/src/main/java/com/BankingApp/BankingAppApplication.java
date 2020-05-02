@@ -10,6 +10,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class BankingAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BankingAppApplication.class, args);
-		log.info("Application Started!");
+		log.info("Banking Application Started!");
 	}
 }
